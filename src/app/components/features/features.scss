@@ -1,0 +1,60 @@
+/* Features Section */
+.features {
+    padding: 5rem 0;
+    background: var(--background);
+    min-height: 100vh;
+     align-items: center;
+    position: relative;
+    overflow: hidden;
+}
+ .container {
+     max-width: 1200px;
+     margin: 0 auto;
+     padding: 0 2rem;
+ }
+
+.features-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 3rem;
+    margin-top: 3rem;
+}
+
+.feature-item {
+    text-align: center;
+}
+
+.feature-icon {
+    width: 80px;
+    height: 80px;
+    background: var(--primary-color);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 1.5rem;
+}
+
+.feature-icon .material-icons {
+    color: white;
+    font-size: 36px;
+}
+
+.feature-item h3 {
+    font-size: 1.3rem;
+    font-weight: 600;
+    margin-bottom: 1rem;
+    color: var(--text-primary);
+}
+
+.feature-item p {
+    color: var(--text-secondary);
+}
+
+/* ---------------------------
+   Animation Classes (GSAP)
+---------------------------- */
+
+.feature-fade-in {
+    transform: translateY(30px);
+}
