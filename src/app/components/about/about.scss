@@ -5,14 +5,14 @@
     min-height: 100vh;
 }
 
- .container {
-     max-width: 1200px;
-     margin: 0 auto;
-     padding: 0 2rem;
- }
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 2rem;
+}
 
 .about-content {
-    
+
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 4rem;
@@ -67,4 +67,3 @@
 .about-slide-in-right {
     transform: translateX(50px);
 }
-

@@ -31,7 +31,6 @@ export class About implements AfterViewInit {
 
    private animateOnScroll(selector: string, animation: gsap.TweenVars): void {
     gsap.utils.toArray(selector).forEach((el: any) => {
-        console.log(`GSAP found ${el.length} elements for ${selector} to ${JSON.stringify(animation)}`);
       gsap.from(el, {
         ...animation,
         opacity: 0,

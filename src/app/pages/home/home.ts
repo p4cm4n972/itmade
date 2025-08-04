@@ -7,14 +7,15 @@ import { Features } from "../../components/features/features";
 import { About } from "../../components/about/about";
 import { Contact } from "../../components/contact/contact";
 import { isPlatformBrowser } from '@angular/common';
-import {MatIconModule} from '@angular/material/icon';
+import { MatIconModule } from '@angular/material/icon';
+import { Footer } from "../../components/footer/footer";
 
 
 @Component({
   selector: 'app-home',
   templateUrl: './home.html',
   styleUrls: ['./home.scss'],
-  imports: [Services, Features, About, Contact, MatIconModule]
+  imports: [Services, Features, About, Contact, MatIconModule, Footer]
 })
 export class Home implements AfterViewInit {
   constructor(@Inject(PLATFORM_ID) private platformId: Object) { }
@@ -27,9 +28,11 @@ export class Home implements AfterViewInit {
       gsap.registerPlugin(ScrollTrigger);
 
       setTimeout(() => {
-        
-       // this.animateHero();
-         requestAnimationFrame(() => {
+
+        requestAnimationFrame(() => {
+          this.animateLayeredPinning();
+
+          this.animateHero();
           this.animateOnScroll('.hero-fade-in', { y: 50 });
           this.animateOnScroll('.hero-slide-in-right', { x: 100 });
         });
@@ -66,7 +69,8 @@ export class Home implements AfterViewInit {
         x: 100,
         opacity: 0,
         ease: 'power3.out'
-      }, '-=0.8');
+      }, '-=0.8')
+      ;
 
     // Floating animation
     gsap.to('.floating-card', {
@@ -78,23 +82,55 @@ export class Home implements AfterViewInit {
     });
 
     // Parallax sur la section hero
-    gsap.to('.hero', {
-      yPercent: -50,
-      ease: 'none',
-      scrollTrigger: {
-        trigger: '.hero',
-        start: 'top bottom',
-        end: 'bottom top',
-        scrub: true
-      }
-    });
+    /* gsap.to('.hero', {
+       yPercent: -50,
+       ease: 'none',
+       scrollTrigger: {
+         trigger: '.hero',
+         start: 'top bottom',
+         end: 'bottom top',
+         pinSpacing: false,
+         scrub: true,
+         toggleActions: 'play none none reverse',
+       }
+     });*/
 
 
   }
 
+  private animateLayeredPinning(): void {
+    const options = {
+      start: 'top top',
+      pin: true,
+      pinSpacing: false,
+      scrub: true,
+      markers: true,
+    };
+
+    gsap.utils.toArray<HTMLElement>('[class$="-panel"]').forEach((panel, i) => {
+      ScrollTrigger.create({
+        trigger: panel,
+        ...options,
+      });
+    });
+
+    gsap.from('.footer', {
+      opacity: 0,
+      y: 50,
+      duration: 1.2,
+      ease: 'power3.out',
+      scrollTrigger: {
+        trigger: '.footer',
+        start: 'top bottom',
+        toggleActions: 'play none none none',
+      },
+    });
+
+  }
+
+
   private animateOnScroll(selector: string, animation: gsap.TweenVars): void {
     gsap.utils.toArray(selector).forEach((el: any) => {
-      console.log(`GSAP found ${el.length} elements for ${selector} to ${JSON.stringify(animation)}`);
       gsap.from(el, {
         ...animation,
         opacity: 0,

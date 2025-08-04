@@ -32,6 +32,7 @@
 }
 
 .hero-cta-button {
+    opacity: 0.9;
     display: inline-flex;
     align-items: center;
     gap: 0.5rem;
@@ -84,4 +85,34 @@
 
 .hero-slide-in-right {
     transform: translateX(50px);
+}
+
+.hero-panel {
+  height: 100vh;
+  position: relative;
+  overflow: hidden;
+}
+
+.service-panel {
+  height: 100vh;
+  position: relative;
+  overflow: hidden;
+}
+
+.feature-panel {
+  height: 100vh;
+  position: relative;
+  overflow: hidden;
+}
+
+.about-panel {
+  height: 100vh;
+  position: relative;
+  overflow: hidden;
+}
+
+.contact-panel {
+  height: 100vh;
+  position: relative;
+  overflow: hidden;
 }

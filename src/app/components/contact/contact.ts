@@ -2,6 +2,7 @@ import { isPlatformBrowser } from '@angular/common';
 import { AfterViewInit, Component, Inject, PLATFORM_ID } from '@angular/core';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { Footer } from "../footer/footer";
 
 @Component({
   selector: 'app-contact',
@@ -29,7 +30,6 @@ export class Contact implements AfterViewInit {
 
    private animateOnScroll(selector: string, animation: gsap.TweenVars): void {
     gsap.utils.toArray(selector).forEach((el: any) => {
-        console.log(`GSAP found ${el.length} elements for ${selector} to ${JSON.stringify(animation)}`);
       gsap.from(el, {
         ...animation,
         opacity: 0,
