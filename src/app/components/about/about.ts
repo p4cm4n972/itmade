@@ -16,10 +16,26 @@ export class About implements AfterViewInit {
   ngAfterViewInit(): void {
     if (isPlatformBrowser(this.platformId)) {
       gsap.registerPlugin(ScrollTrigger);
+      // Stats counter animation
+      gsap.utils.toArray('.stat-number').forEach((stat: any) => {
+        const finalValue = stat.textContent;
+        gsap.from(stat, {
+          duration: 2,
+          textContent: 0,
+          snap: { textContent: 1 },
+          ease: "power2.out",
+          scrollTrigger: {
+            trigger: stat,
+            start: "top 80%",
+            end: "bottom 20%",
+            toggleActions: "play none none reverse"
+          }
+        });
+      });
 
       // ✅ Retarde l'exécution jusqu'à ce que DOM soit prêt
       setTimeout(() => {
-       
+
         requestAnimationFrame(() => {
           this.animateOnScroll('.about-slide-in-left', { x: -100 });
           this.animateOnScroll('.about-slide-in-right', { x: 100 });
@@ -29,7 +45,7 @@ export class About implements AfterViewInit {
     }
   }
 
-   private animateOnScroll(selector: string, animation: gsap.TweenVars): void {
+  private animateOnScroll(selector: string, animation: gsap.TweenVars): void {
     gsap.utils.toArray(selector).forEach((el: any) => {
       gsap.from(el, {
         ...animation,
@@ -44,5 +60,7 @@ export class About implements AfterViewInit {
         },
       });
     });
+
+
   }
 }

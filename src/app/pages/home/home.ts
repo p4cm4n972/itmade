@@ -9,13 +9,14 @@ import { Contact } from "../../components/contact/contact";
 import { isPlatformBrowser } from '@angular/common';
 import { MatIconModule } from '@angular/material/icon';
 import { Footer } from "../../components/footer/footer";
+import { MatButtonModule } from '@angular/material/button';
 
 
 @Component({
   selector: 'app-home',
   templateUrl: './home.html',
   styleUrls: ['./home.scss'],
-  imports: [Services, Features, About, Contact, MatIconModule, Footer]
+  imports: [Services, Features, About, Contact, MatIconModule,MatButtonModule ,Footer]
 })
 export class Home implements AfterViewInit {
   constructor(@Inject(PLATFORM_ID) private platformId: Object) { }
@@ -26,6 +27,7 @@ export class Home implements AfterViewInit {
   ngAfterViewInit(): void {
     if (isPlatformBrowser(this.platformId)) {
       gsap.registerPlugin(ScrollTrigger);
+      
 
       setTimeout(() => {
 
@@ -58,10 +60,9 @@ export class Home implements AfterViewInit {
         opacity: 0,
         ease: 'power3.out'
       }, '-=0.5')
-      .from('.hero-cta-button', {
+      .from('.cta-button', {
         duration: 0.6,
         y: 30,
-        opacity: 0,
         ease: 'power3.out'
       }, '-=0.3')
       .from('.floating-card', {
@@ -81,20 +82,6 @@ export class Home implements AfterViewInit {
       ease: 'power2.inOut'
     });
 
-    // Parallax sur la section hero
-    /* gsap.to('.hero', {
-       yPercent: -50,
-       ease: 'none',
-       scrollTrigger: {
-         trigger: '.hero',
-         start: 'top bottom',
-         end: 'bottom top',
-         pinSpacing: false,
-         scrub: true,
-         toggleActions: 'play none none reverse',
-       }
-     });*/
-
 
   }
 
@@ -108,6 +95,7 @@ export class Home implements AfterViewInit {
     };
 
     gsap.utils.toArray<HTMLElement>('[class$="-panel"]').forEach((panel, i) => {
+      if (panel.classList.contains('no-pin')) return;
       ScrollTrigger.create({
         trigger: panel,
         ...options,
@@ -125,6 +113,18 @@ export class Home implements AfterViewInit {
         toggleActions: 'play none none none',
       },
     });
+
+    // Parallax effect for hero background
+      gsap.to('.hero', {
+        ease: "none",
+        scrollTrigger: {
+          trigger: '.hero',
+          start: "top bottom",
+          end: "bottom top",
+          scrub: true,
+          pinSpacing: false,
+        }
+      });
 
   }
 

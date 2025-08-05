@@ -1,29 +1,98 @@
 <!-- Services Section -->
-    <section id="se" class="services">
-        <div class="container">
-            <h2 class="section-title service-fade-in">Nos Services</h2>
-            <div class="services-grid">
-                <div class="service-card service-scale-in">
-                    <div class="service-icon">
-                        <span class="material-icons">web</span>
-                    </div>
-                    <h3>Sites Web Modernes</h3>
-                    <p>Conception et réalisation de sites web responsive, performants et optimisés SEO. Utilisation d'Angular, React, et des dernières technologies web pour une expérience utilisateur exceptionnelle.</p>
+<section id="se" class="services" #servicesSection>
+    <div class="container">
+        <h2 class="section-title service-fade-in">Nos Offres</h2>
+        <p class="services-subtitle service-fade-in">Solutions digitales adaptées aux TPE, PME et professionnels locaux</p>
+
+        <!-- Grille pour toutes les cartes de service -->
+        <div class="services-grid">
+            <!-- Service 1: Offre principale -->
+            <div class="service-card main-offer">
+                <div class="offer-badge">⭐ OFFRE PHARE</div>
+                <h3>Site Vitrine Professionnel</h3>
+                <div class="offer-price">
+                    <span class="price-from">À partir de</span>
+                    <span class="price-amount">250€</span>
                 </div>
-                <div class="service-card service-scale-in">
-                    <div class="service-icon">
-                        <span class="material-icons">cloud</span>
-                    </div>
-                    <h3>Applications SAAS</h3>
-                    <p>Développement d'applications Software-as-a-Service scalables et sécurisées. Architecture cloud-native, APIs robustes et tableaux de bord intuitifs pour votre business.</p>
+                <div class="offer-features">
+                    <div class="feature-check">✓ Site responsive 3 à 5 sections</div>
+                    <div class="feature-check">✓ Nom de domaine inclus</div>
+                    <div class="feature-check">✓ Hébergement sur nos serveurs</div>
+                    <div class="feature-check">✓ Design personnalisé à votre secteur</div>
+                    <div class="feature-check">✓ Optimisation mobile et référencement</div>
+                    <div class="feature-check">✓ Mise en ligne sous 7 jours</div>
                 </div>
-                <div class="service-card service-scale-in">
-                    <div class="service-icon">
-                        <span class="material-icons">phone_android</span>
+                <a href="#contact" class="offer-cta">Obtenir mon devis gratuit</a>
+            </div>
+            <!-- Service 2: Maintenance -->
+            <div class="service-card">
+                <div class="service-icon">
+                    <span class="material-icons">build</span>
+                </div>
+                <h3>Maintenance & Mises à jour</h3>
+                <p>Gardez votre site à jour sans vous préoccuper de la technique. Modification de textes, ajout de
+                    photos, nouvelles pages... nous nous occupons de tout !</p>
+                <div class="pricing-list">
+                    <div class="price-item">Modification texte/photo : <strong>20-40€</strong></div>
+                    <div class="price-item">Nouvelle page : <strong>70-150€</strong></div>
+                    <div class="price-item">Forfait mensuel : <strong>dès 50€/mois</strong></div>
+                </div>
+            </div>
+
+            <!-- Service 3: Services additionnels -->
+            <div class="service-card">
+                <div class="service-icon">
+                    <span class="material-icons">trending_up</span>
+                </div>
+                <h3>Services Complémentaires</h3>
+                <p>Boostez votre visibilité et professionnalisez votre présence en ligne avec nos services
+                    additionnels adaptés aux petites entreprises.</p>
+                <div class="pricing-list">
+                    <div class="price-item">Référencement local : <strong>150€</strong></div>
+                    <div class="price-item">Rédaction contenu pro : <strong>sur devis</strong></div>
+                    <div class="price-item">Réseaux sociaux & Analytics : <strong>80€</strong></div>
+                    <div class="price-item">Formulaire de commande : <strong>120€</strong></div>
+                </div>
+            </div>
+
+            <!-- Service 4: Pourquoi nous choisir ? -->
+            <div class="service-card advantages-card">
+                <div class="service-icon">
+                    <span class="material-icons">shield</span>
+                </div>
+                <h3>Pourquoi nous choisir ?</h3>
+                <div class="advantages-list">
+                    <div class="advantage-item">
+                        <span class="advantage-icon">🚀</span>
+                        <span>Mise en ligne rapide (7 jours)</span>
                     </div>
-                    <h3>Apps Mobiles Hybrides</h3>
-                    <p>Applications mobiles cross-platform avec Ionic, React Native ou Flutter. Une seule base de code pour iOS et Android, avec des performances natives.</p>
+                    <div class="advantage-item">
+                        <span class="advantage-icon">💰</span>
+                        <span>Prix transparent, pas de frais cachés</span>
+                    </div>
+                    <div class="advantage-item">
+                        <span class="advantage-icon">🛡️</span>
+                        <span>Hébergement sécurisé inclus</span>
+                    </div>
+                    <div class="advantage-item">
+                        <span class="advantage-icon">📱</span>
+                        <span>Support réactif et personnalisé</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Service 5: Idéal pour -->
+            <div class="service-card target-section">
+                <h3>Idéal pour :</h3>
+                <div class="target-list">
+                    <span class="target-item">🏪 Commerçants</span>
+                    <span class="target-item">🔨 Artisans</span>
+                    <span class="target-item">💼 Indépendants</span>
+                    <span class="target-item">🍽️ Restaurateurs</span>
+                    <span class="target-item">🤝 Associations</span>
+                    <span class="target-item">⚕️ Professionnels libéraux</span>
                 </div>
             </div>
         </div>
-    </section>
+    </div>
+</section>

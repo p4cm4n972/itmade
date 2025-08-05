@@ -1,0 +1,74 @@
+.offre {
+  padding: 6rem 0;
+  background-color: var(--background);
+  display: flex;
+  justify-content: center;
+}
+
+.offre .container {
+  max-width: 960px;
+  width: 100%;
+  padding: 0 2rem;
+  text-align: center;
+}
+
+.offre h1 {
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin-bottom: 2rem;
+}
+
+.offre p.mat-body-1 {
+  font-size: 1.05rem;
+  color: var(--text-secondary);
+  margin-bottom: 3rem;
+  max-width: 720px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* Chaque bloc (offre, modèle, services...) */
+.offre mat-card {
+  background: transparent;
+  box-shadow: none;
+  border-radius: 0;
+  margin-bottom: 3rem;
+  text-align: center;
+  padding: 0 1rem;
+}
+
+.offre mat-card-title {
+  font-size: 1.3rem;
+  font-weight: 600;
+  margin-bottom: 1rem;
+  color: var(--text-primary);
+}
+
+.offre mat-card-content {
+  font-size: 1rem;
+  color: var(--text-secondary);
+}
+
+.offre mat-card-content ul {
+  list-style: none;
+  padding: 0;
+  margin: 1rem 0;
+}
+
+.offre mat-card-content li {
+  margin-bottom: 0.5rem;
+}
+
+/* CTA */
+.offre .cta h2 {
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+}
+
+.offre .cta p {
+  font-size: 1rem;
+  color: var(--text-secondary);
+  margin-bottom: 1rem;
+}

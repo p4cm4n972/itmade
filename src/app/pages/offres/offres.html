@@ -1,0 +1,78 @@
+<section class="offre">
+  <div class="container">
+    <h1 class="mat-display-1 mb-6 gsap-fade-up">Création de sites web professionnels pour TPE & PME</h1>
+    <p class="mat-body-1 mb-4 gsap-fade-up">
+      Chez <strong>ITMade</strong>, nous accompagnons les très petites et moyennes entreprises dans la création
+      de leur présence en ligne. Nous concevons des sites web modernes, performants et adaptés à votre activité,
+      sans que vous ayez à gérer la technique.
+    </p>
+
+    <div class="offre-grid">
+      <div class="offre-item gsap-fade-up">
+        <h3>Notre offre de base – Site vitrine clé en main</h3>
+        <ul>
+          <li>Conception et design personnalisé</li>
+          <li>Jusqu'à 5 sections (accueil, services, galerie, contact, etc.)</li>
+          <li>Responsive design (adapté aux mobiles et tablettes)</li>
+          <li>Nom de domaine et hébergement inclus</li>
+          <li>Optimisation des performances et chargement rapide</li>
+        </ul>
+        <p><strong>Tarif : à partir de 490€ TTC</strong></p>
+      </div>
+
+      <div class="offre-item gsap-fade-up">
+        <h3>Un modèle souple : vous gardez le contrôle de votre budget</h3>
+        <p>
+          Le site est propriété d'ITMade : vous bénéficiez d'une mise en place à moindre coût,
+          sans gérer l'hébergement ni les mises à jour techniques. Chaque modification future
+          (textes, images, nouvelles pages...) est facturée à la demande.
+        </p>
+      </div>
+
+      <div class="offre-item gsap-fade-up">
+        <h3>Services à la carte</h3>
+        <ul>
+          <li>Modification de texte ou image : <strong>25€</strong></li>
+          <li>Ajout d’une section ou page : <strong>80€</strong></li>
+          <li>Ajout d’un formulaire ou d’une galerie : <strong>120€</strong></li>
+          <li>Forfait maintenance 3 MAJ/mois : <strong>55€/mois</strong></li>
+          <li>Forfait MAJ illimitées : <strong>89€/mois</strong></li>
+        </ul>
+      </div>
+
+      <div class="offre-item gsap-fade-up">
+        <h3>Options supplémentaires</h3>
+        <ul>
+          <li>Référencement local (Google My Business) : <strong>150€</strong></li>
+          <li>Connexion à vos réseaux sociaux / Google Analytics : <strong>50€</strong></li>
+          <li>Intégration d’un blog ou espace client : <strong>sur devis</strong></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="cta text-center mt-10 gsap-fade-up">
+      <h2 class="mat-headline mb-2">Vous avez un projet ?</h2>
+      <p class="mb-4">Discutons de votre besoin et recevez un devis gratuit en 24h.</p>
+      <button mat-raised-button color="primary" >
+        Démarrer mon projet
+      </button>
+    </div>
+  </div>
+</section>
+
+<!-- Animation GSAP à ajouter dans ton component -->
+<script>
+  gsap.utils.toArray('.gsap-fade-up').forEach((el, i) => {
+    gsap.from(el, {
+      opacity: 0,
+      y: 40,
+      duration: 1,
+      delay: i * 0.1,
+      scrollTrigger: {
+        trigger: el,
+        start: 'top 80%',
+        toggleActions: 'play none none reverse',
+      },
+    });
+  });
+</script>

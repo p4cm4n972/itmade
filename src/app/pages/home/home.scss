@@ -31,7 +31,7 @@
     margin-bottom: 2rem;
 }
 
-.hero-cta-button {
+.cta-button {
     opacity: 0.9;
     display: inline-flex;
     align-items: center;
@@ -49,7 +49,7 @@
     box-shadow: 0 4px 15px rgba(255, 64, 129, 0.3);
 }
 
-.hero-cta-button:hover {
+.cta-button:hover {
     transform: translateY(-2px);
     box-shadow: 0 8px 25px rgba(255, 64, 129, 0.4);
 }
@@ -106,6 +106,12 @@
 }
 
 .about-panel {
+  height: 100vh;
+  position: relative;
+  overflow: hidden;
+}
+
+.offre-panel {
   height: 100vh;
   position: relative;
   overflow: hidden;

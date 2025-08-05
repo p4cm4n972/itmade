@@ -16,6 +16,26 @@ export class Contact implements AfterViewInit {
   ngAfterViewInit(): void {
     if (isPlatformBrowser(this.platformId)) {
       gsap.registerPlugin(ScrollTrigger);
+      // Form submission
+        const contactForm = document.querySelector('.contact-form');
+        if (contactForm) {
+          contactForm.addEventListener('submit', function(this: HTMLFormElement, e) {
+              e.preventDefault();
+              
+              // Animation de feedback
+              gsap.to('.submit-btn', {
+                  duration: 0.2,
+                  scale: 0.95,
+                  yoyo: true,
+                  repeat: 1,
+                  ease: "power2.inOut",
+                  onComplete: () => {
+                      alert('Message envoyé ! Nous vous répondrons dans les plus brefs délais.');
+                      this.reset();
+                  }
+              });
+          });
+        }
 
       // ✅ Retarde l'exécution jusqu'à ce que DOM soit prêt
       setTimeout(() => {
