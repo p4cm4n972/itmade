@@ -1,40 +1,58 @@
 <!-- Hero Section -->
 <div class="hero-panel" #hero>
-    <!-- Hero Section -->
-    <section id="accueil" class="hero" >
-        <div class="hero-container">
-            <div class="hero-content hero-fade-in">
-                <h1>Sites Web Professionnels pour TPE & PME</h1>
-                <p>Votre présence en ligne clé en main ! Site vitrine professionnel, hébergement inclus et maintenance
-                    simplifiée. Idéal pour commerçants, artisans et indépendants.</p>
-                <a href="#se" class="cta-button">
-                    <span class="material-icons">rocket_launch</span>
-                    Voir nos offres dès 250€
-                </a>
-            </div>
-            <div class="hero-visual slide-in-right">
-                <div class="floating-card">
-                    <h3>✨ Offre Spéciale</h3>
-                    <p>Site vitrine professionnel + nom de domaine + hébergement à partir de 250€ seulement</p>
-                </div>
-            </div>
-        </div>
-    </section>
+  <!-- Hero Section -->
+  <section id="accueil" class="hero" #heroSection>
+    <!-- Conteneur des bulles technologiques premium -->
+    <div class="tech-bubbles-container">
+      <div 
+        *ngFor="let tech of technologies; let i = index" 
+        class="tech-bubble"
+        (click)="onTechBubbleClick(tech)"
+        [attr.data-tech]="tech.name"
+        [attr.title]="tech.name">
+        <img [src]="tech.logo" [alt]="tech.name + ' logo'" />
+      </div>
+    </div>
 
+    <div class="hero-container">
+      <div class="hero-content hero-fade-in">
+        <h1>Sites Web Professionnels pour TPE & PME</h1>
+        <p>Votre présence en ligne clé en main ! Site vitrine professionnel, hébergement inclus et maintenance
+           simplifiée. Idéal pour commerçants, artisans et indépendants.</p>
+        <a href="#services" class="cta-button" (click)="onCTAClick()">
+          <span class="material-icons">rocket_launch</span>
+          Voir nos offres dès 250€
+        </a>
+      </div>
+      
+      <div class="hero-visual hero-slide-in-right">
+        <div class="floating-card" #floatingCard>
+          <h3>✨ Offre Spéciale</h3>
+          <p>Site vitrine professionnel + nom de domaine + hébergement à partir de 250€ seulement</p>
+          
+        </div>
+      </div>
+    </div>
+  </section>
 </div>
 
 <!-- Services Section -->
-<div class="service-panel "><app-services></app-services></div>
+<div class="service-panel" id="services">
+  <app-services></app-services>
+</div>
 
 <!-- Features Section -->
-<div class="feature-panel"><app-features></app-features></div>
+<div class="feature-panel" id="features">
+  <app-features></app-features>
+</div>
 
-<!-- About Section -->
-<div class="about-panel"><app-about></app-about></div>
+<!-- About Section -->  
+<div class="about-panel" id="about">
+  <app-about></app-about>
+</div>
 
 <!-- Contact Section -->
-<div class="contact-panel">
-    <app-contact></app-contact>
-    <app-footer class="footer"></app-footer>
-
+<div class="contact-panel" id="contact">
+  <app-contact></app-contact>
+  <app-footer class="footer"></app-footer>
 </div>
