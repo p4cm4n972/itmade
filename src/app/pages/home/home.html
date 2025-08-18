@@ -1,35 +1,31 @@
 <!-- Hero Section -->
-<div class="hero-panel" #hero>
+<div class="hero-panel" #hero id="ho">
   <!-- Hero Section -->
-  <section id="accueil" class="hero" #heroSection>
+  <section class="hero" #heroSection>
     <!-- Conteneur des bulles technologiques premium -->
     <div class="tech-bubbles-container">
-      <div 
-        *ngFor="let tech of technologies; let i = index" 
-        class="tech-bubble"
-        (click)="onTechBubbleClick(tech)"
-        [attr.data-tech]="tech.name"
-        [attr.title]="tech.name">
+      @for(tech of technologies;track tech.name;let i = $index) {<div class="tech-bubble"
+        (click)="onTechBubbleClick(tech)" [attr.data-tech]="tech.name" [attr.title]="tech.name">
         <img [src]="tech.logo" [alt]="tech.name + ' logo'" />
-      </div>
+      </div>}
     </div>
 
     <div class="hero-container">
       <div class="hero-content hero-fade-in">
         <h1>Sites Web Professionnels pour TPE & PME</h1>
         <p>Votre présence en ligne clé en main ! Site vitrine professionnel, hébergement inclus et maintenance
-           simplifiée. Idéal pour commerçants, artisans et indépendants.</p>
+          simplifiée. Idéal pour commerçants, artisans et indépendants.</p>
         <a href="#services" class="cta-button" (click)="onCTAClick()">
           <span class="material-icons">rocket_launch</span>
-          Voir nos offres dès 250€
+          Voir nos offres dès 650€
         </a>
       </div>
-      
+
       <div class="hero-visual hero-slide-in-right">
         <div class="floating-card" #floatingCard>
           <h3>✨ Offre Spéciale</h3>
-          <p>Site vitrine professionnel + nom de domaine + hébergement à partir de 250€ seulement</p>
-          
+          <p>Site vitrine professionnel + nom de domaine + hébergement à partir de 650€ seulement</p>
+
         </div>
       </div>
     </div>
@@ -37,22 +33,22 @@
 </div>
 
 <!-- Services Section -->
-<div class="service-panel" id="services">
+<div class="service-panel" id="se">
   <app-services></app-services>
 </div>
 
 <!-- Features Section -->
-<div class="feature-panel" id="features">
+<div class="feature-panel" id="fe">
   <app-features></app-features>
 </div>
 
-<!-- About Section -->  
-<div class="about-panel" id="about">
+<!-- About Section -->
+<div class="about-panel" id="ab">
   <app-about></app-about>
 </div>
 
 <!-- Contact Section -->
-<div class="contact-panel" id="contact">
+<div class="contact-panel" id="co">
   <app-contact></app-contact>
   <app-footer class="footer"></app-footer>
 </div>

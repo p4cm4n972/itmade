@@ -121,7 +121,6 @@ export class Home implements AfterViewInit, OnDestroy {
       .from('.cta-button', {
         duration: 0.8,
         y: 30,
-        opacity: 0,
         scale: 0.9,
         ease: 'back.out(1.7)'
       }, '-=0.4')
