@@ -1,0 +1,11 @@
+.main-content {
+  margin-top: 64px; // Hauteur de la navbar sur desktop
+  min-height: calc(100vh - 64px);
+}
+
+@media (max-width: 480px) {
+  .main-content {
+    margin-top: 56px; // Hauteur réduite sur mobile
+    min-height: calc(100vh - 56px);
+  }
+}

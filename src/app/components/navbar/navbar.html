@@ -1,13 +1,82 @@
 <mat-toolbar class="navbar" color="primary">
   <div class="nav-container">
+    <!-- Logo -->
     <a class="logo" routerLink="/">ITMade</a>
-
-    <nav class="nav-links">
+    
+    <!-- Navigation Desktop -->
+    <nav class="nav-links desktop-nav">
       <a mat-button href="#ho">Accueil</a>
       <a mat-button href="#se">Services</a>
       <a mat-button href="#fe">Compétences</a>
       <a mat-button href="#ab">À propos</a>
       <a mat-button href="#co">Contact</a>
     </nav>
+    
+    <!-- Menu Burger Mobile -->
+    <button 
+      mat-icon-button 
+      class="mobile-menu-button"
+      (click)="toggleMobileMenu()"
+      [attr.aria-label]="isMenuOpen ? 'Fermer le menu' : 'Ouvrir le menu'"
+      [attr.aria-expanded]="isMenuOpen">
+      <mat-icon>{{ isMenuOpen ? 'close' : 'menu' }}</mat-icon>
+    </button>
   </div>
+  
+  <!-- Menu Mobile Overlay -->
+  <div 
+    class="mobile-menu-overlay" 
+    [class.active]="isMenuOpen"
+    (click)="closeMobileMenu()">
+  </div>
+  
+  <!-- Menu Mobile -->
+  <nav 
+    class="mobile-nav" 
+    [class.active]="isMenuOpen"
+    role="navigation"
+    aria-label="Menu de navigation mobile">
+    <div class="mobile-nav-content">
+      <a 
+        mat-button 
+        href="#ho" 
+        class="mobile-nav-link"
+        (click)="closeMobileMenu()">
+        <mat-icon>home</mat-icon>
+        Accueil
+      </a>
+      <a 
+        mat-button 
+        href="#se" 
+        class="mobile-nav-link"
+        (click)="closeMobileMenu()">
+        <mat-icon>business</mat-icon>
+        Services
+      </a>
+      <a 
+        mat-button 
+        href="#fe" 
+        class="mobile-nav-link"
+        (click)="closeMobileMenu()">
+        <mat-icon>stars</mat-icon>
+        Compétences
+      </a>
+      <a 
+        mat-button 
+        href="#ab" 
+        class="mobile-nav-link"
+        (click)="closeMobileMenu()">
+        <mat-icon>info</mat-icon>
+        À propos
+      </a>
+      <a 
+        mat-button 
+        href="#co" 
+        class="mobile-nav-link"
+        (click)="closeMobileMenu()">
+        <mat-icon>contact_mail</mat-icon>
+        Contact
+      </a>
+    </div>
+  </nav>
 </mat-toolbar>
