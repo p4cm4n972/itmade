@@ -1,69 +1,155 @@
-/* About Section */
-.about {
-    padding: 5rem 0;
+/* about.component.scss */
+
+.about-section {
+  padding: 5rem 0;
     background: var(--surface);
     min-height: 100vh;
+     align-items: center;
+    position: relative;
+    overflow: hidden;
 }
 
-.container {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 0 2rem;
+.about-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 2rem;
 }
 
 .about-content {
-
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 4rem;
-    align-items: center;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 4rem;
+  align-items: center;
+  min-height: 400px;
 }
 
-.about-text h2 {
+.about-text {
+  h2 {
     font-size: 2.5rem;
     font-weight: 700;
-    color: var(--text-primary);
+    color: #212121;
     margin-bottom: 2rem;
-}
+    line-height: 1.2;
+  }
 
-.about-text p {
-    color: var(--text-secondary);
+  p {
+    color: #757575;
     font-size: 1.1rem;
-    margin-bottom: 2rem;
+    margin-bottom: 1.5rem;
+    line-height: 1.7;
+
+    &:last-of-type {
+      margin-bottom: 0;
+    }
+  }
 }
 
-.stats {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 2rem;
-    margin-top: 2rem;
+.stats-container {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2rem;
+  padding: 2rem;
+  background: rgba(255, 255, 255, 0.9);
+  border-radius: 16px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+  border: 1px solid rgba(0, 0, 0, 0.05);
 }
 
 .stat-item {
-    text-align: center;
-}
+  text-align: center;
+  padding: 1rem 0;
 
-.stat-number {
+  .stat-number {
     font-size: 2.5rem;
     font-weight: 700;
-    color: var(--primary-color);
+    color: #1976d2;
     display: block;
-}
+    margin-bottom: 0.5rem;
+    line-height: 1;
+  }
 
-.stat-label {
-    color: var(--text-secondary);
+  .stat-label {
+    color: #757575;
     font-size: 0.9rem;
+    font-weight: 500;
+  }
 }
 
-/* ---------------------------
-   Animation Classes (GSAP)
----------------------------- */
+/* Responsive Design */
+@media (max-width: 968px) {
+  .about-content {
+    grid-template-columns: 1fr;
+    gap: 3rem;
+    text-align: center;
+  }
+  
+  .about-section {
+    padding: 4rem 0;
+  }
 
-
-.about-slide-in-left {
-    transform: translateX(-50px);
+  .stats-container {
+    padding: 1.5rem;
+  }
 }
 
+@media (max-width: 768px) {
+  .about-text h2 {
+    font-size: 2rem;
+  }
+
+  .stats-container {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+  
+  .stat-item {
+    padding: 1rem;
+    background: rgba(25, 118, 210, 0.05);
+    border-radius: 12px;
+    border-left: 4px solid #1976d2;
+  }
+  
+  .about-section {
+    padding: 3rem 0;
+  }
+  
+  .about-container {
+    padding: 0 1.5rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .about-text {
+    h2 {
+      font-size: 1.8rem;
+      margin-bottom: 1.5rem;
+    }
+    
+    p {
+      margin-bottom: 1rem;
+      font-size: 1rem;
+    }
+  }
+  
+  .stats-container {
+    padding: 1rem;
+    gap: 1rem;
+  }
+}
+
+/* Animation améliorée pour éviter les conflits */
+.about-content > * {
+    will-change: transform, opacity;
+}
+
+/* Fallback si les animations ne se déclenchent pas */
+.about-slide-in-left,
 .about-slide-in-right {
-    transform: translateX(50px);
+    transition: all 0.6s ease-out;
+}
+
+.about-slide-in-left.animated,
+.about-slide-in-right.animated {
+    opacity: 1;
+    transform: translateX(0);
 }
