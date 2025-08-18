@@ -1,7 +1,7 @@
 <!-- Hero Section -->
-<div class="hero-panel" #hero id="ho">
+<div class="hero-panel" #hero >
   <!-- Hero Section -->
-  <section class="hero" #heroSection>
+  <section class="hero" #heroSection id="ho">
     <!-- Conteneur des bulles technologiques premium -->
     <div class="tech-bubbles-container">
       @for(tech of technologies;track tech.name;let i = $index) {<div class="tech-bubble"
@@ -15,7 +15,7 @@
         <h1>Sites Web Professionnels pour TPE & PME</h1>
         <p>Votre présence en ligne clé en main ! Site vitrine professionnel, hébergement inclus et maintenance
           simplifiée. Idéal pour commerçants, artisans et indépendants.</p>
-        <a href="#services" class="cta-button" (click)="onCTAClick()">
+        <a href="#se" class="cta-button" (click)="onCTAClick()">
           <span class="material-icons">rocket_launch</span>
           Voir nos offres dès 650€
         </a>
