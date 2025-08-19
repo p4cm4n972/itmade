@@ -275,7 +275,7 @@
 }
 
 /* Dark mode support (si nécessaire) */
-@media (prefers-color-scheme: dark) {
+/*@media (prefers-color-scheme: dark) {
     .navbar {
         background: rgba(18, 18, 18, 0.95);
         border-bottom-color: rgba(255, 255, 255, 0.12);
@@ -292,7 +292,7 @@
             background: rgba(25, 118, 210, 0.16);
         }
     }
-}
+}*/
 
 /* Scroll behavior enhancement */
 .navbar {
