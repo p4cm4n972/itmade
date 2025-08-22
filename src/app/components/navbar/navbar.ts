@@ -127,57 +127,59 @@ export class Navbar implements AfterViewInit, OnDestroy {
     }
   }
 
-  // Animation du menu mobile
-  private animateMobileMenu(): void {
-    if (!isPlatformBrowser(this.platformId)) return;
+  // ✅ ANIMATIONS CORRIGÉES
 
-    // Animation d'ouverture
-    gsap.timeline()
-      .set('.mobile-menu-overlay', { display: 'block' })
-      .to('.mobile-menu-overlay', {
-        opacity: 1,
-        duration: 0.3,
-        ease: 'power2.out'
-      })
-      .to('.mobile-nav', {
-        right: 0,
-        duration: 0.4,
-        ease: 'power3.out'
-      }, '-=0.1')
-      .from('.mobile-nav-link', {
-        x: 30,
-        opacity: 1,
-        duration: 0.4,
-        stagger: 0.05,
-        ease: 'power3.out'
-      }, '-=0.2');
-  }
+// Animation du menu mobile
+private animateMobileMenu(): void {
+  if (!isPlatformBrowser(this.platformId)) return;
 
-  private animateMobileMenuClose(): void {
-    if (!isPlatformBrowser(this.platformId)) return;
+  // Animation d'ouverture
+  gsap.timeline()
+    .set('.mobile-menu-overlay', { display: 'block' })
+    .to('.mobile-menu-overlay', {
+      opacity: 1,
+      duration: 0.3,
+      ease: 'power2.out'
+    })
+    .to('.mobile-nav', {
+      right: 0,
+      duration: 0.4,
+      ease: 'power3.out'
+    }, '-=0.1')
+    .from('.mobile-nav-link', {
+      x: 30,
+      opacity: 0,  // ✅ CORRECTION : 0 au lieu de 1
+      duration: 0.4,
+      stagger: 0.05,
+      ease: 'power3.out'
+    }, '-=0.2');
+}
 
-    gsap.timeline()
-      .to('.mobile-nav-link', {
-        x: 30,
-        opacity: 0,
-        duration: 0.2,
-        stagger: 0.02,
-        ease: 'power3.in'
-      })
-      .to('.mobile-nav', {
-        right: '-100%',
-        duration: 0.3,
-        ease: 'power3.in'
-      }, '-=0.1')
-      .to('.mobile-menu-overlay', {
-        opacity: 0,
-        duration: 0.2,
-        ease: 'power2.in',
-        onComplete: () => {
-          gsap.set('.mobile-menu-overlay', { display: 'none' });
-        }
-      }, '-=0.2');
-  }
+private animateMobileMenuClose(): void {
+  if (!isPlatformBrowser(this.platformId)) return;
+
+  gsap.timeline()
+    .to('.mobile-nav-link', {
+      x: 30,
+      opacity: 0,
+      duration: 0.2,
+      stagger: 0.02,
+      ease: 'power3.in'
+    })
+    .to('.mobile-nav', {
+      right: '-100%',
+      duration: 0.3,
+      ease: 'power3.in'
+    }, '-=0.1')
+    .to('.mobile-menu-overlay', {
+      opacity: 0,
+      duration: 0.2,
+      ease: 'power2.in',
+      onComplete: () => {
+        gsap.set('.mobile-menu-overlay', { display: 'none' });
+      }
+    }, '-=0.2');
+}
 
   // Gestion du scroll du body
   private updateBodyScroll(): void {
