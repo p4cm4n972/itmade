@@ -146,7 +146,7 @@ export class Navbar implements AfterViewInit, OnDestroy {
       }, '-=0.1')
       .from('.mobile-nav-link', {
         x: 30,
-        opacity: 0,
+        opacity: 1,
         duration: 0.4,
         stagger: 0.05,
         ease: 'power3.out'
