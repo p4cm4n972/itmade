@@ -275,7 +275,7 @@
 }
 
 /* ✅ DARK MODE OPTIONNEL - Seulement si classe .dark-theme est présente */
-/*.dark-theme .navbar {
+.dark-theme .navbar {
     background: rgba(18, 18, 18, 0.95);
     border-bottom-color: rgba(255, 255, 255, 0.12);
 }
@@ -290,7 +290,7 @@
     &:hover {
         background: rgba(25, 118, 210, 0.16);
     }
-}*/
+}
 
 /* Scroll behavior enhancement */
 .navbar {
