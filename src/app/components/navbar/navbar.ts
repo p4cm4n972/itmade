@@ -148,7 +148,7 @@ private animateMobileMenu(): void {
     }, '-=0.1')
     .from('.mobile-nav-link', {
       x: 30,
-      opacity: 0,  // ✅ CORRECTION : 0 au lieu de 1
+      opacity: 0,
       duration: 0.4,
       stagger: 0.05,
       ease: 'power3.out'
