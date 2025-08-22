@@ -6,7 +6,7 @@ const path = require('path');
 require('dotenv').config();
 
 const app = express();
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 3001;
 
 // Security middlewares
 app.use(helmet({
@@ -69,7 +69,7 @@ app.use((req, res) => {
 });
 
 app.listen(PORT, () => {
-  console.log(`🚀 Serveur ITMade démarré sur le port ${PORT}`);
+  console.log(`🚀 API ITMade Contact démarrée sur le port ${PORT}`);
   console.log(`🌐 Mode: ${process.env.NODE_ENV || 'development'}`);
   console.log(`📧 EmailJS configuré: ${process.env.EMAILJS_SERVICE_ID ? '✅' : '❌'}`);
 });
