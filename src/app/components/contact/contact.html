@@ -3,14 +3,88 @@
     <div class="contact-container">
         <h2 class="contact-fade-in">Contactez ITMade pour votre Site Web Professionnel</h2>
         <p class="contact-fade-in">Obtenez votre devis gratuit pour la création de votre site web professionnel. Équipe expérimentée, livraison rapide, tarifs transparents.</p>
-        <form class="contact-form contact-fade-in">
+        <form class="contact-form contact-fade-in" #contactForm (ngSubmit)="onSubmit()" novalidate>
             <div class="form-group">
-                <input type="text" placeholder="Votre nom" required>
-                <input type="email" placeholder="Votre email" required>
+                <input 
+                    type="text" 
+                    name="user_name" 
+                    [(ngModel)]="formData.name" 
+                    placeholder="Votre nom" 
+                    required
+                    [class.error]="isFieldInvalid('name')"
+                    #nameField="ngModel">
+                <input 
+                    type="email" 
+                    name="user_email" 
+                    [(ngModel)]="formData.email" 
+                    placeholder="Votre email" 
+                    required 
+                    email
+                    [class.error]="isFieldInvalid('email')"
+                    #emailField="ngModel">
             </div>
-            <input type="text" placeholder="Sujet" required>
-            <textarea placeholder="Décrivez votre projet..." required></textarea>
-            <button type="submit" class="submit-btn">Envoyer le message</button>
+            <input 
+                type="text" 
+                name="subject" 
+                [(ngModel)]="formData.subject" 
+                placeholder="Sujet" 
+                required
+                [class.error]="isFieldInvalid('subject')"
+                #subjectField="ngModel">
+            <textarea 
+                name="message" 
+                [(ngModel)]="formData.message" 
+                placeholder="Décrivez votre projet..." 
+                required
+                rows="5"
+                [class.error]="isFieldInvalid('message')"
+                #messageField="ngModel"></textarea>
+            
+            <!-- Messages d'erreur -->
+            <div class="form-errors" *ngIf="showErrors">
+                <div class="error-message" *ngIf="nameField.invalid && nameField.touched">
+                    Le nom est requis
+                </div>
+                <div class="error-message" *ngIf="emailField.invalid && emailField.touched">
+                    <span *ngIf="emailField.errors?.['required']">L'email est requis</span>
+                    <span *ngIf="emailField.errors?.['email']">Format d'email invalide</span>
+                </div>
+                <div class="error-message" *ngIf="subjectField.invalid && subjectField.touched">
+                    Le sujet est requis
+                </div>
+                <div class="error-message" *ngIf="messageField.invalid && messageField.touched">
+                    Le message est requis
+                </div>
+            </div>
+            
+            <!-- Message de statut -->
+            <div class="status-message" [ngClass]="statusClass" *ngIf="statusMessage">
+                {{ statusMessage }}
+            </div>
+            
+            <button 
+                type="submit" 
+                class="submit-btn" 
+                [disabled]="isSubmitting"
+                [class.loading]="isSubmitting">
+                <span *ngIf="!isSubmitting">Envoyer le message</span>
+                <span *ngIf="isSubmitting" class="loading-text">
+                    <span class="spinner"></span>
+                    Envoi en cours...
+                </span>
+            </button>
         </form>
+        
+        <!-- Information de contact supplémentaire -->
+        <div class="contact-info contact-fade-in">
+            <div class="contact-item">
+                <span class="material-icons">email</span>
+                <span>contact@itmade.fr</span>
+            </div>
+            <div class="contact-item">
+                <span class="material-icons">schedule</span>
+                <span>Réponse sous 24h</span>
+            </div>
+        </div>
     </div>
 </section>

@@ -31,6 +31,7 @@
     "@angular/platform-server": "^20.1.0",
     "@angular/router": "^20.1.0",
     "@angular/ssr": "^20.1.4",
+    "@emailjs/browser": "^4.4.1",
     "express": "^5.1.0",
     "gsap": "^3.13.0",
     "rxjs": "~7.8.0",
