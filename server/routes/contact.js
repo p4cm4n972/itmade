@@ -50,7 +50,7 @@ function sanitizeData(data) {
 }
 
 // Endpoint sécurisé pour l'envoi d'emails
-router.post('/send-email', async (req, res) => {
+router.post('/contact/send-email', async (req, res) => {
   try {
     // Log de la tentative (sans données sensibles)
     console.log(`📧 Tentative d'envoi email depuis IP: ${req.ip}`);
