@@ -21,9 +21,9 @@ import gsap from 'gsap';
   styleUrl: './navbar.scss',
 })
 export class Navbar implements AfterViewInit, OnDestroy {
-  
+
   @ViewChild('navbar', { static: false }) navbarRef!: ElementRef;
-  
+
   // État du menu mobile
   isMenuOpen = false;
   lastScroll = 0;
@@ -38,14 +38,16 @@ export class Navbar implements AfterViewInit, OnDestroy {
 
   ngAfterViewInit(): void {
     if (isPlatformBrowser(this.platformId)) {
-      // ✅ CORRECTION : Cacher immédiatement avant animation
+      // ✅ Cacher immédiatement la navbar
       this.hideElementsBeforeAnimation();
-      
+
+      // ✅ NOUVEAU : Initialiser l'état des liens du menu mobile
+      this.initializeMobileMenuState();
+
       this.checkMobileView();
       this.setupScrollBehavior();
       this.setupKeyboardListeners();
-      
-      // ✅ Délai pour s'assurer que les éléments sont cachés
+
       setTimeout(() => {
         requestAnimationFrame(() => {
           this.animateNavbar();
@@ -54,11 +56,28 @@ export class Navbar implements AfterViewInit, OnDestroy {
     }
   }
 
+  // ✅ NOUVELLE MÉTHODE : Initialiser l'état du menu mobile
+  private initializeMobileMenuState(): void {
+    gsap.set('.mobile-nav-link', {
+      x: 30,
+      opacity: 0
+    });
+
+    gsap.set('.mobile-menu-overlay', {
+      display: 'none',
+      opacity: 0
+    });
+
+    gsap.set('.mobile-nav', {
+      right: '-100%'
+    });
+  }
+
   ngOnDestroy(): void {
     if (this.resizeTimeout) {
       clearTimeout(this.resizeTimeout);
     }
-    
+
     if (isPlatformBrowser(this.platformId)) {
       // ✅ Cleanup de tous les event listeners
       document.removeEventListener('keydown', this.handleKeydown.bind(this));
@@ -82,7 +101,7 @@ export class Navbar implements AfterViewInit, OnDestroy {
   // ✅ MÉTHODE CORRIGÉE : Animation d'entrée de la navbar
   private animateNavbar(): void {
     const timeline = gsap.timeline();
-    
+
     timeline
       .to('.navbar', {
         y: 0,
@@ -99,17 +118,6 @@ export class Navbar implements AfterViewInit, OnDestroy {
       }, '-=0.5'); // Commence avant la fin de la navbar
   }
 
-  // Gestion du menu mobile
-  toggleMobileMenu(): void {
-    this.isMenuOpen = !this.isMenuOpen;
-    this.updateBodyScroll();
-    
-    if (this.isMenuOpen) {
-      this.animateMobileMenu();
-    } else {
-      this.animateMobileMenuClose();
-    }
-  }
 
   closeMobileMenu(): void {
     if (this.isMenuOpen) {
@@ -127,59 +135,76 @@ export class Navbar implements AfterViewInit, OnDestroy {
     }
   }
 
-  // ✅ ANIMATIONS CORRIGÉES
+  // ✅ ANIMATION D'OUVERTURE CORRIGÉE
+  private animateMobileMenu(): void {
+    if (!isPlatformBrowser(this.platformId)) return;
 
-// Animation du menu mobile
-private animateMobileMenu(): void {
-  if (!isPlatformBrowser(this.platformId)) return;
+    // Animation d'ouverture
+    gsap.timeline()
+      .set('.mobile-menu-overlay', { display: 'block' })
+      .to('.mobile-menu-overlay', {
+        opacity: 1,
+        duration: 0.3,
+        ease: 'power2.out'
+      })
+      .to('.mobile-nav', {
+        right: 0,
+        duration: 0.4,
+        ease: 'power3.out'
+      }, '-=0.1')
+      // ✅ CORRECTION : Animer vers l'état final (pas from)
+      .to('.mobile-nav-link', {
+        x: 0,
+        opacity: 1,
+        duration: 0.4,
+        stagger: 0.05,
+        ease: 'power3.out'
+      }, '-=0.2');
+  }
 
-  // Animation d'ouverture
-  gsap.timeline()
-    .set('.mobile-menu-overlay', { display: 'block' })
-    .to('.mobile-menu-overlay', {
-      opacity: 1,
-      duration: 0.3,
-      ease: 'power2.out'
-    })
-    .to('.mobile-nav', {
-      right: 0,
-      duration: 0.4,
-      ease: 'power3.out'
-    }, '-=0.1')
-    .from('.mobile-nav-link', {
-      x: 30,
-      opacity: 1,
-      duration: 0.4,
-      stagger: 0.05,
-      ease: 'power3.out'
-    }, '-=0.2');
-}
+  // ✅ ANIMATION DE FERMETURE AVEC RESET
+  private animateMobileMenuClose(): void {
+    if (!isPlatformBrowser(this.platformId)) return;
 
-private animateMobileMenuClose(): void {
-  if (!isPlatformBrowser(this.platformId)) return;
+    gsap.timeline()
+      .to('.mobile-nav-link', {
+        x: 30,
+        opacity: 0,
+        duration: 0.2,
+        stagger: 0.02,
+        ease: 'power3.in'
+      })
+      .to('.mobile-nav', {
+        right: '-100%',
+        duration: 0.3,
+        ease: 'power3.in'
+      }, '-=0.1')
+      .to('.mobile-menu-overlay', {
+        opacity: 0,
+        duration: 0.2,
+        ease: 'power2.in',
+        onComplete: () => {
+          gsap.set('.mobile-menu-overlay', { display: 'none' });
+          // ✅ NOUVEAU : Remettre les liens dans leur état initial
+          gsap.set('.mobile-nav-link', {
+            x: 30,
+            opacity: 0
+          });
+        }
+      }, '-=0.2');
+  }
 
-  gsap.timeline()
-    .to('.mobile-nav-link', {
-      x: 30,
-      opacity: 0,
-      duration: 0.2,
-      stagger: 0.02,
-      ease: 'power3.in'
-    })
-    .to('.mobile-nav', {
-      right: '-100%',
-      duration: 0.3,
-      ease: 'power3.in'
-    }, '-=0.1')
-    .to('.mobile-menu-overlay', {
-      opacity: 0,
-      duration: 0.2,
-      ease: 'power2.in',
-      onComplete: () => {
-        gsap.set('.mobile-menu-overlay', { display: 'none' });
-      }
-    }, '-=0.2');
-}
+  // ✅ MÉTHODE TOGGLE AMÉLIORÉE
+  toggleMobileMenu(): void {
+    this.isMenuOpen = !this.isMenuOpen;
+    this.updateBodyScroll();
+
+    if (this.isMenuOpen) {
+      this.animateMobileMenu();
+    } else {
+      this.animateMobileMenuClose();
+    }
+  }
 
   // Gestion du scroll du body
   private updateBodyScroll(): void {
@@ -341,19 +366,19 @@ private animateMobileMenuClose(): void {
   // ✅ MÉTHODE POUR NAVIGUER VERS UNE SECTION
   public navigateToSection(sectionId: string): void {
     if (!isPlatformBrowser(this.platformId)) return;
-    
+
     const element = document.getElementById(sectionId);
     if (element) {
       // Fermer le menu mobile si ouvert
       if (this.isMenuOpen) {
         this.closeMobileMenu();
       }
-      
+
       // Scroll vers la section avec un délai pour laisser le menu se fermer
       setTimeout(() => {
-        element.scrollIntoView({ 
-          behavior: 'smooth', 
-          block: 'start' 
+        element.scrollIntoView({
+          behavior: 'smooth',
+          block: 'start'
         });
       }, this.isMenuOpen ? 300 : 0);
     }
@@ -362,9 +387,9 @@ private animateMobileMenuClose(): void {
   // ✅ MÉTHODE POUR FORCER LA RÉINITIALISATION DES ANIMATIONS
   public resetAnimations(): void {
     if (!isPlatformBrowser(this.platformId)) return;
-    
+
     this.hideElementsBeforeAnimation();
-    
+
     setTimeout(() => {
       this.animateNavbar();
     }, 50);
