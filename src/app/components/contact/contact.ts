@@ -1,23 +1,18 @@
 import { isPlatformBrowser, CommonModule } from '@angular/common';
 import { AfterViewInit, Component, Inject, PLATFORM_ID } from '@angular/core';
-import { FormsModule, NgForm } from '@angular/forms';
+import { FormsModule } from '@angular/forms';
 import { MatIconModule } from '@angular/material/icon';
+import { HttpClient, HttpClientModule } from '@angular/common/http';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import emailjs from '@emailjs/browser';
 
 @Component({
   selector: 'app-contact',
-  imports: [CommonModule, FormsModule, MatIconModule],
+  imports: [CommonModule, FormsModule, MatIconModule, HttpClientModule],
   templateUrl: './contact.html',
   styleUrl: './contact.scss'
 })
 export class Contact implements AfterViewInit {
-
-  // Configuration EmailJS
-  private readonly EMAIL_SERVICE_ID = 'service_x00zprf';
-  private readonly EMAIL_TEMPLATE_ID = 'template_wwdfjou';
-  private readonly EMAIL_PUBLIC_KEY = 'Oe9QsLVCKgJbT6IFY';
 
   // État du formulaire
   formData = {
@@ -32,12 +27,10 @@ export class Contact implements AfterViewInit {
   statusMessage = '';
   statusClass = '';
 
-  constructor(@Inject(PLATFORM_ID) private platformId: Object) { 
-    // Initialiser EmailJS
-    if (isPlatformBrowser(this.platformId)) {
-      emailjs.init(this.EMAIL_PUBLIC_KEY);
-    }
-  }
+  constructor(
+    @Inject(PLATFORM_ID) private platformId: Object,
+    private http: HttpClient
+  ) {}
 
   ngAfterViewInit(): void {
     if (isPlatformBrowser(this.platformId)) {
@@ -51,7 +44,7 @@ export class Contact implements AfterViewInit {
         requestAnimationFrame(() => {
           this.animateOnScroll('.contact-fade-in', { y: 50 });
         });
-      }, 100); // Légèrement plus de délai pour être sûr
+      }, 100);
     }
   }
 
@@ -108,7 +101,7 @@ export class Contact implements AfterViewInit {
     return this.showErrors && (!field || field.trim() === '');
   }
 
-  // Soumission du formulaire
+  // Soumission du formulaire - Version API sécurisée
   async onSubmit() {
     this.showErrors = true;
     this.statusMessage = '';
@@ -128,36 +121,49 @@ export class Contact implements AfterViewInit {
     try {
       // Vérifier si on est côté client
       if (!isPlatformBrowser(this.platformId)) {
-        throw new Error('EmailJS nécessite un environnement navigateur');
+        throw new Error('Formulaire disponible uniquement côté client');
       }
 
-      // Préparation des données pour EmailJS
-      const templateParams = {
-        from_name: this.formData.name,
-        from_email: this.formData.email,
-        subject: this.formData.subject,
-        message: this.formData.message,
-        reply_to: 'manuel.adele@gmail.com',
-      };
+      // Appel à l'API backend sécurisée
+      const response = await this.http.post<{
+        success: boolean;
+        message?: string;
+        error?: string;
+        errors?: string[];
+      }>('/api/send-email', {
+        name: this.formData.name.trim(),
+        email: this.formData.email.trim(),
+        subject: this.formData.subject.trim(),
+        message: this.formData.message.trim()
+      }).toPromise();
 
-      // Envoi avec EmailJS
-      const response = await emailjs.send(
-        this.EMAIL_SERVICE_ID,
-        this.EMAIL_TEMPLATE_ID,
-        templateParams
-      );
-
-      if (response.status === 200) {
-        this.statusMessage = 'Message envoyé avec succès ! Nous vous répondrons dans les plus brefs délais.';
+      if (response?.success) {
+        this.statusMessage = response.message || 'Message envoyé avec succès ! Nous vous répondrons dans les plus brefs délais.';
         this.statusClass = 'success';
         this.resetForm();
+        
+        // Animation de succès
+        this.animateSuccess();
       } else {
-        throw new Error('Erreur lors de l\'envoi');
+        throw new Error(response?.error || 'Erreur lors de l\'envoi');
       }
 
-    } catch (error) {
+    } catch (error: any) {
       console.error('Erreur lors de l\'envoi:', error);
-      this.statusMessage = 'Erreur lors de l\'envoi. Veuillez réessayer ou nous contacter directement à contact@itmade.fr';
+      
+      // Gestion des erreurs spécifiques
+      if (error.status === 400 && error.error?.errors) {
+        this.statusMessage = 'Erreurs de validation: ' + error.error.errors.join(', ');
+      } else if (error.status === 429) {
+        this.statusMessage = 'Trop de tentatives. Veuillez patienter avant de réessayer.';
+      } else if (error.status === 500) {
+        this.statusMessage = 'Erreur du serveur. Veuillez réessayer plus tard ou nous contacter directement à manuel.adele@gmail.com';
+      } else if (error.message) {
+        this.statusMessage = error.message;
+      } else {
+        this.statusMessage = 'Erreur lors de l\'envoi. Veuillez réessayer ou nous contacter directement à manuel.adele@gmail.com';
+      }
+      
       this.statusClass = 'error';
     } finally {
       this.isSubmitting = false;
@@ -199,6 +205,19 @@ export class Contact implements AfterViewInit {
         yoyo: true,
         repeat: 1,
         ease: "power2.inOut"
+      });
+    }
+  }
+
+  // Animation de succès
+  private animateSuccess(): void {
+    if (isPlatformBrowser(this.platformId)) {
+      gsap.from('.status-message.success', {
+        duration: 0.6,
+        scale: 0.8,
+        opacity: 0,
+        y: 20,
+        ease: "back.out(1.7)"
       });
     }
   }
