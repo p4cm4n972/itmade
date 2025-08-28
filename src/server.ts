@@ -69,6 +69,14 @@ function sanitizeData(data: any) {
 app.post('/api/contact/send-email', async (req:any, res: any): Promise<void> => {
   try {
     console.log(`📧 Tentative d'envoi email depuis IP: ${req.ip}`);
+    console.log('Body reçu:', req.body);
+    
+    // Vérifier la configuration EmailJS
+    console.log('Configuration EmailJS:', {
+      serviceId: EMAILJS_CONFIG.serviceId,
+      templateId: EMAILJS_CONFIG.templateId,
+      publicKeyExists: !!EMAILJS_CONFIG.publicKey
+    });
     
     // Validation des données
     const errors = validateContactData(req.body);
@@ -92,6 +100,7 @@ app.post('/api/contact/send-email', async (req:any, res: any): Promise<void> => 
     
     // Sanitization des données
     const sanitizedData = sanitizeData(req.body);
+    console.log('Données sanitized:', sanitizedData);
     
     // Préparation des données pour EmailJS
     const templateParams = {
@@ -104,12 +113,22 @@ app.post('/api/contact/send-email', async (req:any, res: any): Promise<void> => 
       ip_address: req.ip
     };
     
+    console.log('Template params:', templateParams);
+    
+    // Test si EmailJS est bien importé
+    if (!emailjs || typeof emailjs.send !== 'function') {
+      throw new Error('EmailJS non disponible ou mal importé');
+    }
+    
     // Envoi avec EmailJS
+    console.log('Tentative d\'envoi avec EmailJS...');
     const response = await emailjs.send(
       EMAILJS_CONFIG.serviceId,
       EMAILJS_CONFIG.templateId,
       templateParams
     );
+    
+    console.log('Réponse EmailJS:', response);
     
     if (response.status === 200) {
       console.log('✅ Email envoyé avec succès');
@@ -118,26 +137,29 @@ app.post('/api/contact/send-email', async (req:any, res: any): Promise<void> => 
         message: 'Email envoyé avec succès!'
       });
     } else {
-      throw new Error('Échec de l\'envoi EmailJS');
+      throw new Error(`Échec de l'envoi EmailJS - Status: ${response.status}`);
     }
     
   } catch (error: any) {
+    console.error('❌ Erreur complète:', error);
+    console.error('❌ Type d\'erreur:', typeof error);
     console.error('❌ Erreur détaillée:', {
-      message: error.message,
-      stack: error.stack,
-      name: error.name
+      message: error?.message || 'Message non disponible',
+      stack: error?.stack || 'Stack non disponible',
+      name: error?.name || 'Nom non disponible',
+      fullError: error
     });
     
     res.status(500).json({
       success: false,
       error: 'Erreur lors de l\'envoi. Veuillez réessayer plus tard.',
-      details: process.env['NODE_ENV'] === 'development' ? error.message : undefined
+      details: process.env['NODE_ENV'] === 'development' ? (error?.message || 'Erreur inconnue') : undefined
     });
   }
 });
 
 // Route de test pour vérifier la configuration
-app.get('/api/contact/health', (req, res): void => {
+app.get('/api/contact/health', (_req, res): void => {
   res.json({
     status: 'OK',
     timestamp: new Date().toISOString(),
