@@ -6,23 +6,34 @@ import {
 } from '@angular/ssr/node';
 import express from 'express';
 import { join } from 'node:path';
-import * as emailjs from '@emailjs/nodejs';
 import * as validator from 'validator';
+import * as nodemailer from 'nodemailer';
 
 const browserDistFolder = join(import.meta.dirname, '../browser');
 
 const app = express();
 const angularApp = new AngularNodeAppEngine();
 
-// Configuration EmailJS
-const EMAILJS_CONFIG = {
-  serviceId: 'service_x00zprf',
-  templateId: 'template_wwdfjou',
-  publicKey: 'Oe9QsLVCKgJbT6IFY'
+// Configuration Email avec Nodemailer
+const EMAIL_CONFIG = {
+  host: 'smtp-relay.brevo.com',
+  port: 587,
+  user: '8af8cf001@smtp-brevo.com', 
+  password: 'xsmtpsib-ae6e52770cf5f4794ee7a9c34add40b71f1f532175f914089e614aff226d7acc-m9',
+  from: 'no-reply@verstack.io',
+  to: 'manuel.adele@gmail.com'
 };
 
-// Initialiser EmailJS
-emailjs.init({ publicKey: EMAILJS_CONFIG.publicKey });
+// Créer le transporteur Nodemailer
+const transporter = nodemailer.createTransporter({
+  host: EMAIL_CONFIG.host,
+  port: EMAIL_CONFIG.port,
+  secure: false, // true pour 465, false pour autres ports
+  auth: {
+    user: EMAIL_CONFIG.user,
+    pass: EMAIL_CONFIG.password
+  }
+});
 
 // Middleware pour parser le JSON
 app.use(express.json({ limit: '10mb' }));
@@ -71,13 +82,6 @@ app.post('/api/contact/send-email', async (req:any, res: any): Promise<void> => 
     console.log(`📧 Tentative d'envoi email depuis IP: ${req.ip}`);
     console.log('Body reçu:', req.body);
     
-    // Vérifier la configuration EmailJS
-    console.log('Configuration EmailJS:', {
-      serviceId: EMAILJS_CONFIG.serviceId,
-      templateId: EMAILJS_CONFIG.templateId,
-      publicKeyExists: !!EMAILJS_CONFIG.publicKey
-    });
-    
     // Validation des données
     const errors = validateContactData(req.body);
     if (errors.length > 0) {
@@ -102,43 +106,66 @@ app.post('/api/contact/send-email', async (req:any, res: any): Promise<void> => 
     const sanitizedData = sanitizeData(req.body);
     console.log('Données sanitized:', sanitizedData);
     
-    // Préparation des données pour EmailJS
-    const templateParams = {
-      from_name: sanitizedData.name,
-      from_email: sanitizedData.email,
-      subject: sanitizedData.subject,
-      message: sanitizedData.message,
-      reply_to: sanitizedData.email,
-      timestamp: new Date().toLocaleString('fr-FR'),
-      ip_address: req.ip
+    // Préparer l'email HTML
+    const emailHtml = `
+      <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
+        <h2 style="color: #1976d2;">Nouveau message de contact - ITMade</h2>
+        
+        <div style="background: #f5f5f5; padding: 20px; border-radius: 5px; margin: 20px 0;">
+          <p><strong>Nom:</strong> ${sanitizedData.name}</p>
+          <p><strong>Email:</strong> ${sanitizedData.email}</p>
+          <p><strong>Sujet:</strong> ${sanitizedData.subject}</p>
+          <p><strong>Date:</strong> ${new Date().toLocaleString('fr-FR')}</p>
+          <p><strong>IP:</strong> ${req.ip}</p>
+        </div>
+        
+        <div style="background: white; padding: 20px; border-left: 4px solid #1976d2; margin: 20px 0;">
+          <h3>Message:</h3>
+          <p>${sanitizedData.message.replace(/\n/g, '<br>')}</p>
+        </div>
+        
+        <hr>
+        <p style="font-size: 12px; color: #666; text-align: center;">
+          Envoyé depuis le formulaire de contact ITMade.fr
+        </p>
+      </div>
+    `;
+    
+    // Configuration de l'email
+    const mailOptions = {
+      from: `"${sanitizedData.name}" <${EMAIL_CONFIG.from}>`,
+      to: EMAIL_CONFIG.to,
+      replyTo: sanitizedData.email,
+      subject: `Contact ITMade: ${sanitizedData.subject}`,
+      html: emailHtml,
+      text: `
+        Nouveau message de contact ITMade
+        
+        Nom: ${sanitizedData.name}
+        Email: ${sanitizedData.email}
+        Sujet: ${sanitizedData.subject}
+        Date: ${new Date().toLocaleString('fr-FR')}
+        IP: ${req.ip}
+        
+        Message:
+        ${sanitizedData.message}
+        
+        ---
+        Envoyé depuis le formulaire de contact ITMade.fr
+      `
     };
     
-    console.log('Template params:', templateParams);
+    // Envoi avec Nodemailer
+    console.log('Tentative d\'envoi avec Nodemailer...');
+    const info = await transporter.sendMail(mailOptions);
     
-    // Test si EmailJS est bien importé
-    if (!emailjs || typeof emailjs.send !== 'function') {
-      throw new Error('EmailJS non disponible ou mal importé');
-    }
+    console.log('Email envoyé:', info.messageId);
+    console.log('✅ Email envoyé avec succès');
     
-    // Envoi avec EmailJS
-    console.log('Tentative d\'envoi avec EmailJS...');
-    const response = await emailjs.send(
-      EMAILJS_CONFIG.serviceId,
-      EMAILJS_CONFIG.templateId,
-      templateParams
-    );
-    
-    console.log('Réponse EmailJS:', response);
-    
-    if (response.status === 200) {
-      console.log('✅ Email envoyé avec succès');
-      res.json({
-        success: true,
-        message: 'Email envoyé avec succès!'
-      });
-    } else {
-      throw new Error(`Échec de l'envoi EmailJS - Status: ${response.status}`);
-    }
+    res.json({
+      success: true,
+      message: 'Email envoyé avec succès!'
+    });
     
   } catch (error: any) {
     console.error('❌ Erreur complète:', error);
@@ -163,7 +190,13 @@ app.get('/api/contact/health', (_req, res): void => {
   res.json({
     status: 'OK',
     timestamp: new Date().toISOString(),
-    emailjs_configured: !!(EMAILJS_CONFIG.serviceId && EMAILJS_CONFIG.templateId && EMAILJS_CONFIG.publicKey)
+    email_configured: !!(EMAIL_CONFIG.host && EMAIL_CONFIG.user && EMAIL_CONFIG.password),
+    email_config: {
+      host: EMAIL_CONFIG.host,
+      port: EMAIL_CONFIG.port,
+      user: EMAIL_CONFIG.user,
+      to: EMAIL_CONFIG.to
+    }
   });
 });
 
