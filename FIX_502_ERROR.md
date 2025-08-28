@@ -23,6 +23,7 @@ curl -X POST http://localhost:3001/api/send-email \
 
 ```bash
 # Tester la config Nginx
+
 sudo nginx -t
 
 # Voir les logs d'erreur Nginx
@@ -71,6 +72,7 @@ sudo nano /etc/nginx/sites-available/itmade
 **S'assurer que la configuration est :**
 ```nginx
 location /api/contact {
+
     proxy_pass http://localhost:3001/api;
     proxy_http_version 1.1;
     proxy_set_header Host $host;
@@ -81,9 +83,11 @@ location /api/contact {
     # Timeout
     proxy_connect_timeout 60s;
     proxy_send_timeout 60s;
+
     proxy_read_timeout 60s;
 }
 ```
+
 
 ### 3. Redémarrer les services
 ```bash
