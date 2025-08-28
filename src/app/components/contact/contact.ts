@@ -130,7 +130,7 @@ export class Contact implements AfterViewInit {
         message?: string;
         error?: string;
         errors?: string[];
-      }>('https://itmade.fr:3001/api/contact/send-email', {
+      }>('/api/contact/send-email', {
         name: this.formData.name.trim(),
         email: this.formData.email.trim(),
         subject: this.formData.subject.trim(),
