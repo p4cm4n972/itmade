@@ -5,6 +5,7 @@ import { MatIconModule } from '@angular/material/icon';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import emailjs from '@emailjs/browser';
+import { environment } from '../../../environments/environment';
 
 @Component({
   selector: 'app-contact',
@@ -14,10 +15,10 @@ import emailjs from '@emailjs/browser';
 })
 export class Contact implements AfterViewInit {
 
-  // Configuration EmailJS
-  private readonly EMAIL_SERVICE_ID = 'service_x00zprf';
-  private readonly EMAIL_TEMPLATE_ID = 'template_wwdfjou';
-  private readonly EMAIL_PUBLIC_KEY = 'Oe9QsLVCKgJbT6IFY';
+  // Configuration EmailJS depuis les variables d'environnement
+  private readonly EMAIL_SERVICE_ID = environment.emailjs.serviceId;
+  private readonly EMAIL_TEMPLATE_ID = environment.emailjs.templateId;
+  private readonly EMAIL_PUBLIC_KEY = environment.emailjs.publicKey;
 
   // État du formulaire
   formData = {
