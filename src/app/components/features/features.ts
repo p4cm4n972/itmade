@@ -21,6 +21,7 @@ export class Features implements AfterViewInit {
         
          requestAnimationFrame(() => {
           this.animateOnScroll('.feature-fade-in', { y: -50 });
+          this.animateAdvantages();
         });
 
       }, 0);
@@ -42,6 +43,52 @@ export class Features implements AfterViewInit {
         },
       });
     });
+  }
+
+  private animateAdvantages(): void {
+    // Animation des avantages
+    gsap.fromTo('.advantage-item',
+      {
+        opacity: 0,
+        x: -20
+      },
+      {
+        opacity: 1,
+        x: 0,
+        duration: 0.6,
+        stagger: 0.1,
+        ease: 'power2.out',
+        delay: 0.4,
+        scrollTrigger: {
+          trigger: '.advantages-grid',
+          start: 'top 90%',
+          toggleActions: 'play none none reverse'
+        }
+      }
+    );
+
+    // Animation des icônes d'avantages
+    gsap.fromTo('.advantage-icon',
+      {
+        opacity: 0,
+        scale: 0,
+        rotation: 360
+      },
+      {
+        opacity: 1,
+        scale: 1,
+        rotation: 0,
+        duration: 0.5,
+        stagger: 0.1,
+        ease: 'back.out(1.7)',
+        delay: 0.6,
+        scrollTrigger: {
+          trigger: '.advantages-grid',
+          start: 'top 90%',
+          toggleActions: 'play none none reverse'
+        }
+      }
+    );
   }
 
 

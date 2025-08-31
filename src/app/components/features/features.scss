@@ -52,6 +52,69 @@
     color: var(--text-secondary);
 }
 
+/* Advantages section */
+.advantages-section {
+    margin-top: 4rem;
+    text-align: center;
+    
+    h3 {
+        font-size: 1.8rem;
+        font-weight: 600;
+        color: var(--text-primary);
+        margin-bottom: 2rem;
+    }
+}
+
+.advantages-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 1.5rem;
+    margin-top: 2rem;
+}
+
+.advantage-item {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 1rem;
+    background: var(--surface);
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+    transition: all 0.3s ease;
+    border: 1px solid rgba(0, 0, 0, 0.05);
+    
+    &:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+    }
+    
+    .advantage-icon {
+        font-size: 1.5rem;
+        flex-shrink: 0;
+    }
+    
+    span:last-child {
+        font-size: 0.9rem;
+        color: var(--text-secondary);
+        text-align: left;
+    }
+}
+
+@media (max-width: 768px) {
+    .advantages-grid {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+    }
+    
+    .advantage-item {
+        padding: 0.8rem;
+        
+        span:last-child {
+            font-size: 0.85rem;
+        }
+    }
+}
+
 /* ---------------------------
    Animation Classes (GSAP)
 ---------------------------- */
