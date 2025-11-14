@@ -5,16 +5,18 @@ import { MatButtonModule } from '@angular/material/button';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
-import { Services } from "../../components/services/services";
-import { Features } from "../../components/features/features";
-import { About } from "../../components/about/about";
+import { Entreprises } from "../../components/entreprises/entreprises";
+import { Consultants } from "../../components/consultants/consultants";
+import { Expertises } from "../../components/expertises/expertises";
+import { Approche } from "../../components/approche/approche";
+import { CtaFinal } from "../../components/cta-final/cta-final";
 import { Contact } from "../../components/contact/contact";
 
 @Component({
   selector: 'app-home',
   templateUrl: './home.html',
   styleUrls: ['./home.scss'],
-  imports: [CommonModule, Services, Features, About, Contact, MatIconModule, MatButtonModule]
+  imports: [CommonModule, Entreprises, Consultants, Expertises, Approche, CtaFinal, Contact, MatIconModule, MatButtonModule]
 })
 export class Home implements AfterViewInit, OnDestroy {
   @ViewChild('hero', { static: true }) hero!: ElementRef;

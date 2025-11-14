@@ -1,0 +1,214 @@
+/* ========== SECTION CTA FINAL ========== */
+
+.cta-final {
+  padding: var(--space-20) 0;
+  background: var(--background-primary);
+  position: relative;
+  overflow: hidden;
+}
+
+.cta-wrapper {
+  position: relative;
+  background: var(--gradient-hero);
+  border-radius: var(--radius-2xl);
+  padding: var(--space-16) var(--space-8);
+  overflow: hidden;
+}
+
+/* ========== BACKGROUND ========== */
+
+.cta-background {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+}
+
+.gradient-orb {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(80px);
+  opacity: 0.4;
+
+  &.orb-1 {
+    top: -100px;
+    right: -100px;
+    width: 400px;
+    height: 400px;
+    background: radial-gradient(circle, rgba(99, 102, 241, 0.6), transparent);
+  }
+
+  &.orb-2 {
+    bottom: -100px;
+    left: -100px;
+    width: 500px;
+    height: 500px;
+    background: radial-gradient(circle, rgba(6, 182, 212, 0.5), transparent);
+  }
+}
+
+/* ========== CONTENT ========== */
+
+.cta-content {
+  position: relative;
+  z-index: 1;
+  text-align: center;
+  max-width: 800px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-6);
+}
+
+.cta-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: var(--space-2) var(--space-4);
+  background: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: var(--radius-full);
+  font-size: var(--text-sm);
+  font-weight: var(--font-semibold);
+  color: var(--text-inverse);
+
+  mat-icon {
+    font-size: 18px;
+    width: 18px;
+    height: 18px;
+  }
+}
+
+h2 {
+  font-size: clamp(2rem, 5vw, 3.5rem);
+  font-weight: var(--font-extrabold);
+  color: var(--text-inverse);
+  margin: 0;
+  line-height: var(--leading-tight);
+}
+
+p {
+  font-size: var(--text-lg);
+  color: rgba(255, 255, 255, 0.9);
+  line-height: var(--leading-relaxed);
+  max-width: 600px;
+  margin: 0;
+}
+
+/* ========== CTA BUTTONS ========== */
+
+.cta-buttons {
+  display: flex;
+  gap: var(--space-4);
+  flex-wrap: wrap;
+  justify-content: center;
+  margin-top: var(--space-4);
+
+  .btn {
+    mat-icon {
+      font-size: 20px;
+      width: 20px;
+      height: 20px;
+    }
+
+    &.btn-secondary {
+      background: rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(10px);
+      color: var(--text-inverse);
+      border: 2px solid rgba(255, 255, 255, 0.3);
+
+      &:hover {
+        background: rgba(255, 255, 255, 0.2);
+        border-color: rgba(255, 255, 255, 0.5);
+      }
+    }
+  }
+}
+
+/* ========== CONTACT INFO ========== */
+
+.contact-info {
+  display: flex;
+  gap: var(--space-8);
+  margin-top: var(--space-6);
+  padding-top: var(--space-6);
+  border-top: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.info-item {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  color: rgba(255, 255, 255, 0.9);
+
+  mat-icon {
+    font-size: 20px;
+    width: 20px;
+    height: 20px;
+    color: var(--accent-light);
+  }
+
+  a {
+    color: var(--text-inverse);
+    text-decoration: none;
+    font-size: var(--text-base);
+    font-weight: var(--font-medium);
+    transition: color var(--transition-base);
+
+    &:hover {
+      color: var(--accent-light);
+    }
+  }
+}
+
+/* ========== RESPONSIVE ========== */
+
+@media (max-width: 768px) {
+  .cta-final {
+    padding: var(--space-16) 0;
+  }
+
+  .cta-wrapper {
+    padding: var(--space-12) var(--space-6);
+    border-radius: var(--radius-xl);
+  }
+
+  .cta-buttons {
+    flex-direction: column;
+    width: 100%;
+
+    .btn {
+      width: 100%;
+      justify-content: center;
+    }
+  }
+
+  .contact-info {
+    flex-direction: column;
+    gap: var(--space-4);
+    align-items: center;
+  }
+
+  h2 {
+    font-size: clamp(1.75rem, 6vw, 2.5rem);
+  }
+}
+
+@media (max-width: 480px) {
+  .cta-wrapper {
+    padding: var(--space-8) var(--space-4);
+  }
+
+  .contact-info {
+    width: 100%;
+
+    .info-item {
+      flex-direction: column;
+      text-align: center;
+    }
+  }
+}
