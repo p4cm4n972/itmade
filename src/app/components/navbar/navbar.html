@@ -1,20 +1,30 @@
-<mat-toolbar class="navbar" color="primary">
+<nav class="navbar" #navbar>
   <div class="nav-container">
-    <!-- Logo -->
-    <a class="logo" routerLink="/">ITMade</a>
-    
+    <!-- Logo & Baseline -->
+    <a class="logo-container" routerLink="/" aria-label="ITMade - Accueil">
+      <div class="logo">ITMade</div>
+      <div class="baseline">Recrutement & prestations de services IT</div>
+    </a>
+
     <!-- Navigation Desktop -->
-    <nav class="nav-links desktop-nav">
-      <a mat-button href="#top">Accueil</a>
-      <a mat-button href="#services">Services</a>
-      <a mat-button href="#fonctionnalites">Compétences</a>
-      <a mat-button href="#a-propos">À propos</a>
-      <a mat-button href="#contact">Contact</a>
-    </nav>
-    
+    <div class="nav-links desktop-nav">
+      <a class="nav-link" routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">Accueil</a>
+      <a class="nav-link" routerLink="/entreprises" routerLinkActive="active">Entreprises</a>
+      <a class="nav-link" routerLink="/consultants" routerLinkActive="active">Consultants</a>
+      <a class="nav-link" routerLink="/missions" routerLinkActive="active">Missions</a>
+      <a class="nav-link" href="#a-propos">À propos</a>
+      <a class="nav-link" href="#contact">Contact</a>
+    </div>
+
+    <!-- CTA Principal -->
+    <button class="btn btn-primary cta-button" mat-raised-button (click)="scrollToContact()">
+      <mat-icon>person_add</mat-icon>
+      Recruter un consultant
+    </button>
+
     <!-- Menu Burger Mobile -->
-    <button 
-      mat-icon-button 
+    <button
+      mat-icon-button
       class="mobile-menu-button"
       (click)="toggleMobileMenu()"
       [attr.aria-label]="isMenuOpen ? 'Fermer le menu' : 'Ouvrir le menu'"
@@ -22,61 +32,83 @@
       <mat-icon>{{ isMenuOpen ? 'close' : 'menu' }}</mat-icon>
     </button>
   </div>
-  
+
   <!-- Menu Mobile Overlay -->
-  <div 
-    class="mobile-menu-overlay" 
+  <div
+    class="mobile-menu-overlay"
     [class.active]="isMenuOpen"
     (click)="closeMobileMenu()">
   </div>
-  
+
   <!-- Menu Mobile -->
-  <nav 
-    class="mobile-nav" 
+  <nav
+    class="mobile-nav"
     [class.active]="isMenuOpen"
     role="navigation"
     aria-label="Menu de navigation mobile">
     <div class="mobile-nav-content">
-      <a 
-        mat-button 
-        href="#top" 
-        class="mobile-nav-link"
-        (click)="closeMobileMenu()">
-        <mat-icon>home</mat-icon>
-        Accueil
-      </a>
-      <a 
-        mat-button 
-        href="#services" 
-        class="mobile-nav-link"
-        (click)="closeMobileMenu()">
-        <mat-icon>business</mat-icon>
-        Services
-      </a>
-      <a 
-        mat-button 
-        href="#fonctionnalites" 
-        class="mobile-nav-link"
-        (click)="closeMobileMenu()">
-        <mat-icon>stars</mat-icon>
-        Compétences
-      </a>
-      <a 
-        mat-button 
-        href="#a-propos" 
-        class="mobile-nav-link"
-        (click)="closeMobileMenu()">
-        <mat-icon>info</mat-icon>
-        À propos
-      </a>
-      <a 
-        mat-button 
-        href="#contact" 
-        class="mobile-nav-link"
-        (click)="closeMobileMenu()">
-        <mat-icon>contact_mail</mat-icon>
-        Contact
-      </a>
+      <!-- Logo Mobile -->
+      <div class="mobile-logo">
+        <div class="logo">ITMade</div>
+        <div class="baseline">Recrutement & prestations IT</div>
+      </div>
+
+      <!-- CTA Mobile -->
+      <button class="btn btn-primary btn-large mobile-cta" mat-raised-button (click)="scrollToContact()">
+        <mat-icon>person_add</mat-icon>
+        Recruter un consultant
+      </button>
+
+      <!-- Links Mobile -->
+      <div class="mobile-links">
+        <a
+          class="mobile-nav-link"
+          routerLink="/"
+          routerLinkActive="active"
+          [routerLinkActiveOptions]="{exact: true}"
+          (click)="closeMobileMenu()">
+          <mat-icon>home</mat-icon>
+          Accueil
+        </a>
+        <a
+          class="mobile-nav-link"
+          routerLink="/entreprises"
+          routerLinkActive="active"
+          (click)="closeMobileMenu()">
+          <mat-icon>business</mat-icon>
+          Entreprises
+        </a>
+        <a
+          class="mobile-nav-link"
+          routerLink="/consultants"
+          routerLinkActive="active"
+          (click)="closeMobileMenu()">
+          <mat-icon>badge</mat-icon>
+          Consultants
+        </a>
+        <a
+          class="mobile-nav-link"
+          routerLink="/missions"
+          routerLinkActive="active"
+          (click)="closeMobileMenu()">
+          <mat-icon>work</mat-icon>
+          Missions
+        </a>
+        <a
+          class="mobile-nav-link"
+          href="#a-propos"
+          (click)="closeMobileMenu()">
+          <mat-icon>info</mat-icon>
+          À propos
+        </a>
+        <a
+          class="mobile-nav-link"
+          href="#contact"
+          (click)="closeMobileMenu()">
+          <mat-icon>contact_mail</mat-icon>
+          Contact
+        </a>
+      </div>
     </div>
   </nav>
-</mat-toolbar>
+</nav>

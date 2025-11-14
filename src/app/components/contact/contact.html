@@ -1,90 +1,140 @@
 <!-- Contact Section -->
 <section id="contact" class="contact">
-    <div class="contact-container">
-        <h2 class="contact-fade-in">Contactez ITMade pour votre Site Web Professionnel</h2>
-        <p class="contact-fade-in">Obtenez votre devis gratuit pour la création de votre site web professionnel. Équipe expérimentée, livraison rapide, tarifs transparents.</p>
-        <form class="contact-form contact-fade-in" #contactForm (ngSubmit)="onSubmit()" novalidate>
-            <div class="form-group">
-                <input 
-                    type="text" 
-                    name="user_name" 
-                    [(ngModel)]="formData.name" 
-                    placeholder="Votre nom" 
-                    required
-                    [class.error]="isFieldInvalid('name')"
-                    #nameField="ngModel">
-                <input 
-                    type="email" 
-                    name="user_email" 
-                    [(ngModel)]="formData.email" 
-                    placeholder="Votre email" 
-                    required 
-                    email
-                    [class.error]="isFieldInvalid('email')"
-                    #emailField="ngModel">
+  <div class="container">
+    <div class="contact-content">
+      <!-- Header -->
+      <div class="contact-header contact-fade-in">
+        <div class="section-badge">
+          <mat-icon>mail_outline</mat-icon>
+          <span>Contactez-nous</span>
+        </div>
+        <h2>Discutons de votre projet IT</h2>
+        <p>Recrutement de consultants, prestations ou conseil : notre équipe vous répond sous 24h</p>
+      </div>
+
+      <div class="contact-grid">
+        <!-- Formulaire -->
+        <div class="contact-form-container contact-fade-in">
+          <form [formGroup]="contactForm" (ngSubmit)="onSubmit()" class="contact-form">
+            <!-- Nom & Email -->
+            <div class="form-row">
+              <div class="form-field">
+                <mat-icon class="field-icon">person_outline</mat-icon>
+                <input
+                  type="text"
+                  formControlName="name"
+                  placeholder="Nom complet *"
+                  [class.error]="hasError('name')">
+                <div class="error-message" *ngIf="hasError('name')">
+                  {{ getErrorMessage('name') }}
+                </div>
+              </div>
+
+              <div class="form-field">
+                <mat-icon class="field-icon">email</mat-icon>
+                <input
+                  type="email"
+                  formControlName="email"
+                  placeholder="Email professionnel *"
+                  [class.error]="hasError('email')">
+                <div class="error-message" *ngIf="hasError('email')">
+                  {{ getErrorMessage('email') }}
+                </div>
+              </div>
             </div>
-            <input 
-                type="text" 
-                name="subject" 
-                [(ngModel)]="formData.subject" 
-                placeholder="Sujet" 
-                required
-                [class.error]="isFieldInvalid('subject')"
-                #subjectField="ngModel">
-            <textarea 
-                name="message" 
-                [(ngModel)]="formData.message" 
-                placeholder="Décrivez votre projet..." 
-                required
-                rows="5"
-                [class.error]="isFieldInvalid('message')"
-                #messageField="ngModel"></textarea>
-            
-            <!-- Messages d'erreur -->
-            <div class="form-errors" *ngIf="showErrors">
-                <div class="error-message" *ngIf="nameField.invalid && nameField.touched">
-                    Le nom est requis
-                </div>
-                <div class="error-message" *ngIf="emailField.invalid && emailField.touched">
-                    <span *ngIf="emailField.errors?.['required']">L'email est requis</span>
-                    <span *ngIf="emailField.errors?.['email']">Format d'email invalide</span>
-                </div>
-                <div class="error-message" *ngIf="subjectField.invalid && subjectField.touched">
-                    Le sujet est requis
-                </div>
-                <div class="error-message" *ngIf="messageField.invalid && messageField.touched">
-                    Le message est requis
-                </div>
+
+            <!-- Sujet -->
+            <div class="form-field">
+              <mat-icon class="field-icon">subject</mat-icon>
+              <input
+                type="text"
+                formControlName="subject"
+                placeholder="Sujet de votre demande *"
+                [class.error]="hasError('subject')">
+              <div class="error-message" *ngIf="hasError('subject')">
+                {{ getErrorMessage('subject') }}
+              </div>
             </div>
-            
+
+            <!-- Message -->
+            <div class="form-field">
+              <mat-icon class="field-icon">message</mat-icon>
+              <textarea
+                formControlName="message"
+                placeholder="Décrivez votre besoin en détail... *"
+                rows="6"
+                [class.error]="hasError('message')"></textarea>
+              <div class="error-message" *ngIf="hasError('message')">
+                {{ getErrorMessage('message') }}
+              </div>
+            </div>
+
             <!-- Message de statut -->
             <div class="status-message" [ngClass]="statusClass" *ngIf="statusMessage">
-                {{ statusMessage }}
+              <mat-icon *ngIf="statusClass === 'success'">check_circle</mat-icon>
+              <mat-icon *ngIf="statusClass === 'error'">error</mat-icon>
+              <span>{{ statusMessage }}</span>
             </div>
-            
-            <button 
-                type="submit" 
-                class="submit-btn" 
-                [disabled]="isSubmitting"
-                [class.loading]="isSubmitting">
-                <span *ngIf="!isSubmitting">Envoyer le message</span>
-                <span *ngIf="isSubmitting" class="loading-text">
-                    <span class="spinner"></span>
-                    Envoi en cours...
-                </span>
+
+            <!-- Bouton d'envoi -->
+            <button
+              type="submit"
+              class="btn btn-primary btn-large"
+              mat-raised-button
+              [disabled]="isSubmitting">
+              <mat-icon *ngIf="!isSubmitting">send</mat-icon>
+              <span *ngIf="!isSubmitting">Envoyer le message</span>
+              <span *ngIf="isSubmitting" class="loading-text">
+                <span class="spinner"></span>
+                Envoi en cours...
+              </span>
             </button>
-        </form>
-        
-        <!-- Information de contact supplémentaire -->
-        <div class="contact-info contact-fade-in">
-            <div class="contact-item">
-                <span class="material-icons">email</span>
-                <span>contact@itmade.fr</span>
-            </div>
-            <div class="contact-item">
-                <span class="material-icons">schedule</span>
-                <span>Réponse sous 24h</span>
-            </div>
+          </form>
         </div>
+
+        <!-- Informations de contact -->
+        <div class="contact-info-container contact-fade-in">
+          <div class="info-card">
+            <div class="info-icon">
+              <mat-icon>email</mat-icon>
+            </div>
+            <div class="info-content">
+              <h3>Email</h3>
+              <p>contact@itmade.fr</p>
+            </div>
+          </div>
+
+          <div class="info-card">
+            <div class="info-icon">
+              <mat-icon>phone</mat-icon>
+            </div>
+            <div class="info-content">
+              <h3>Téléphone</h3>
+              <p>+33 1 23 45 67 89</p>
+            </div>
+          </div>
+
+          <div class="info-card">
+            <div class="info-icon">
+              <mat-icon>schedule</mat-icon>
+            </div>
+            <div class="info-content">
+              <h3>Réponse rapide</h3>
+              <p>Sous 24h en semaine</p>
+            </div>
+          </div>
+
+          <div class="info-card highlight">
+            <div class="info-icon">
+              <mat-icon>verified</mat-icon>
+            </div>
+            <div class="info-content">
+              <h3>Engagement qualité</h3>
+              <p>Consultants certifiés et missions sur mesure</p>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
+  </div>
 </section>

@@ -3,19 +3,13 @@
 // components according to the Material 3 design spec.
 // Learn more about theming and how to use it for your application's
 // custom components at https://material.angular.dev/guide/theming
+@use './styles/variables' as *;
 @use '@angular/material' as mat;
 
-:root {
-  --primary-color: #1976d2;
-  --primary-dark: #1565c0;
-  --secondary-color: #ff4081;
-  --background: #fafafa;
-  --surface: #ffffff;
-  --text-primary: #212121;
-  --text-secondary: #757575;
-  --accent: #03dac6;
-  --gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-}
+// Import Google Fonts - Inter for Modern Tech Design
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+
+// Import design variables
 
 html {
   @include mat.theme((color: (primary: mat.$azure-palette,
@@ -28,32 +22,118 @@ html {
 }
 
 body {
-  // Default the application to a light color theme. This can be changed to
-  // `dark` to enable the dark color theme, or to `light dark` to defer to the
-  // user's system settings.
   color-scheme: light;
-
-  // Set a default background, font and text colors for the application using
-  // Angular Material's system-level CSS variables. Learn more about these
-  // variables at https://material.angular.dev/guide/system-variables
-  background-color: var(--mat-sys-surface);
-  color: var(--mat-sys-on-surface);
-  font: var(--mat-sys-body-medium);
-
-  // Reset the user agent margin.
   margin: 0;
+  padding: 0;
+  font-family: var(--font-primary);
+  font-size: var(--text-base);
+  line-height: var(--leading-normal);
+  color: var(--text-primary);
+  background-color: var(--background-primary);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
-
-/* You can add global styles to this file, and also import other style files */
 
 html,
 body {
   height: 100%;
+  scroll-behavior: smooth;
 }
 
-body {
+/* Global Resets & Base Styles */
+* {
   margin: 0;
-  font-family: Roboto, "Helvetica Neue", sans-serif;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-weight: var(--font-bold);
+  line-height: var(--leading-tight);
+  color: var(--text-primary);
+}
+
+h1 {
+  font-size: var(--text-6xl);
+  font-weight: var(--font-extrabold);
+}
+
+h2 {
+  font-size: var(--text-5xl);
+}
+
+h3 {
+  font-size: var(--text-4xl);
+}
+
+p {
+  line-height: var(--leading-relaxed);
+  color: var(--text-secondary);
+}
+
+a {
+  color: var(--secondary-color);
+  text-decoration: none;
+  transition: color var(--transition-base);
+
+  &:hover {
+    color: var(--secondary-dark);
+  }
+}
+
+button {
+  font-family: var(--font-primary);
+  cursor: pointer;
+  border: none;
+  outline: none;
+  transition: all var(--transition-base);
+}
+
+/* Utility Classes */
+.container {
+  width: 100%;
+  max-width: var(--container-xl);
+  margin: 0 auto;
+  padding: 0 var(--space-6);
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-3) var(--space-6);
+  font-size: var(--text-base);
+  font-weight: var(--font-semibold);
+  border-radius: var(--radius-lg);
+  transition: all var(--transition-base);
+  gap: var(--space-2);
+
+  &-primary {
+    background: var(--gradient-primary);
+    color: var(--text-inverse);
+    box-shadow: var(--shadow-md);
+
+    &:hover {
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-xl);
+    }
+  }
+
+  &-secondary {
+    background: var(--background-primary);
+    color: var(--secondary-color);
+    border: 2px solid var(--secondary-color);
+
+    &:hover {
+      background: var(--secondary-color);
+      color: var(--text-inverse);
+    }
+  }
+
+  &-large {
+    padding: var(--space-4) var(--space-8);
+    font-size: var(--text-lg);
+  }
 }
 
 

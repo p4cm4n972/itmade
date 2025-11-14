@@ -1,0 +1,110 @@
+.page-hero {
+  padding: calc(var(--space-20) + 72px) 0 var(--space-20);
+  background: var(--gradient-hero);
+  position: relative;
+  overflow: hidden;
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: -200px;
+    right: -200px;
+    width: 600px;
+    height: 600px;
+    background: radial-gradient(circle, rgba(99, 102, 241, 0.3), transparent);
+    border-radius: 50%;
+    filter: blur(80px);
+  }
+
+  .hero-content {
+    position: relative;
+    z-index: 1;
+    text-align: center;
+    max-width: 800px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--space-6);
+
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: var(--space-2);
+      padding: var(--space-2) var(--space-4);
+      background: rgba(255, 255, 255, 0.15);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      border-radius: var(--radius-full);
+      font-size: var(--text-sm);
+      font-weight: var(--font-semibold);
+      color: var(--text-inverse);
+
+      mat-icon {
+        font-size: 18px;
+        width: 18px;
+        height: 18px;
+      }
+    }
+
+    h1 {
+      font-size: clamp(2.5rem, 6vw, 4rem);
+      font-weight: var(--font-extrabold);
+      color: var(--text-inverse);
+      margin: 0;
+      line-height: var(--leading-tight);
+    }
+
+    p {
+      font-size: var(--text-xl);
+      color: rgba(255, 255, 255, 0.9);
+      line-height: var(--leading-relaxed);
+      max-width: 600px;
+      margin: 0;
+    }
+
+    .hero-cta {
+      margin-top: var(--space-4);
+    }
+  }
+}
+
+@media (max-width: 768px) {
+  .page-hero {
+    padding: calc(var(--space-16) + 64px) 0 var(--space-16);
+  }
+}
+
+.missions-section {
+  padding: var(--space-20) 0;
+  background: var(--background-secondary);
+}
+
+.coming-soon {
+  text-align: center;
+  padding: var(--space-20);
+  background: var(--background-card);
+  border-radius: var(--radius-2xl);
+  border: 2px dashed var(--border-color);
+
+  mat-icon {
+    font-size: 64px;
+    width: 64px;
+    height: 64px;
+    color: var(--secondary-color);
+    margin-bottom: var(--space-4);
+  }
+
+  h2 {
+    font-size: var(--text-3xl);
+    font-weight: var(--font-bold);
+    color: var(--text-primary);
+    margin: 0 0 var(--space-4);
+  }
+
+  p {
+    font-size: var(--text-lg);
+    color: var(--text-secondary);
+    margin: 0 0 var(--space-6);
+  }
+}

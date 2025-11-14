@@ -1,0 +1,51 @@
+name: Deploy Frontend to VPS
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v3
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Setup SSH Key
+        run: |
+          mkdir -p ~/.ssh
+          echo "${{ secrets.SSH_PRIVATE_KEY }}" | tr -d '\r' > ~/.ssh/id_rsa
+          chmod 600 ~/.ssh/id_rsa
+          ssh-keyscan -H "${{ secrets.SSH_HOST }}" >> ~/.ssh/known_hosts
+          ssh-keyscan -H github.com >> ~/.ssh/known_hosts
+
+      - name: Deploy Frontend
+        run: |
+          ssh ubuntu@"${{ secrets.SSH_HOST }}" << 'EOF'
+            cd /var/www/itmade/itmade
+            git pull origin main
+            npm install
+
+            # Environment variables
+            export API_BASE_URL="${{ secrets.API_BASE_URL || 'http://127.0.0.1:3000' }}"
+            export EMAILJS_SERVICE_ID="${{ secrets.EMAILJS_SERVICE_ID }}"
+            export EMAILJS_TEMPLATE_ID="${{ secrets.EMAILJS_TEMPLATE_ID }}"
+            export EMAILJS_PUBLIC_KEY="${{ secrets.EMAILJS_PUBLIC_KEY }}"
+
+            # 🟢 Build complet SSR (browser + server)
+            npm run build
+
+            # 🟢 Redémarre le SSR avec PM2
+            pm2 restart itmade || pm2 start ecosystem.config.js --only itmade
+
+            # 🟢 Sauvegarde la configuration PM2
+            pm2 save
+          EOF
