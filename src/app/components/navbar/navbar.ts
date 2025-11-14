@@ -2,6 +2,7 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { CommonModule, isPlatformBrowser } from '@angular/common';
+import { RouterLink, RouterLinkActive } from '@angular/router';
 import {
   Component,
   AfterViewInit,
@@ -16,7 +17,7 @@ import gsap from 'gsap';
 
 @Component({
   selector: 'app-navbar',
-  imports: [MatToolbarModule, MatButtonModule, MatIconModule, CommonModule],
+  imports: [MatToolbarModule, MatButtonModule, MatIconModule, CommonModule, RouterLink, RouterLinkActive],
   templateUrl: './navbar.html',
   styleUrl: './navbar.scss',
 })
@@ -436,6 +437,11 @@ export class Navbar implements AfterViewInit, OnDestroy {
         });
       }, this.isMenuOpen ? 300 : 0);
     }
+  }
+
+  // ✅ MÉTHODE POUR SCROLLER VERS LE CONTACT
+  public scrollToContact(): void {
+    this.navigateToSection('contact');
   }
 
   // ✅ MÉTHODE POUR FORCER LA RÉINITIALISATION DES ANIMATIONS

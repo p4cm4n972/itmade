@@ -8,16 +8,16 @@
 
     <!-- Navigation Desktop -->
     <div class="nav-links desktop-nav">
-      <a class="nav-link" href="#accueil">Accueil</a>
-      <a class="nav-link" href="#entreprises">Entreprises</a>
-      <a class="nav-link" href="#consultants">Consultants</a>
-      <a class="nav-link" href="#missions">Missions</a>
+      <a class="nav-link" routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">Accueil</a>
+      <a class="nav-link" routerLink="/entreprises" routerLinkActive="active">Entreprises</a>
+      <a class="nav-link" routerLink="/consultants" routerLinkActive="active">Consultants</a>
+      <a class="nav-link" routerLink="/missions" routerLinkActive="active">Missions</a>
       <a class="nav-link" href="#a-propos">À propos</a>
       <a class="nav-link" href="#contact">Contact</a>
     </div>
 
     <!-- CTA Principal -->
-    <button class="btn btn-primary cta-button" mat-raised-button>
+    <button class="btn btn-primary cta-button" mat-raised-button (click)="scrollToContact()">
       <mat-icon>person_add</mat-icon>
       Recruter un consultant
     </button>
@@ -54,7 +54,7 @@
       </div>
 
       <!-- CTA Mobile -->
-      <button class="btn btn-primary btn-large mobile-cta" mat-raised-button (click)="closeMobileMenu()">
+      <button class="btn btn-primary btn-large mobile-cta" mat-raised-button (click)="scrollToContact()">
         <mat-icon>person_add</mat-icon>
         Recruter un consultant
       </button>
@@ -63,28 +63,33 @@
       <div class="mobile-links">
         <a
           class="mobile-nav-link"
-          href="#accueil"
+          routerLink="/"
+          routerLinkActive="active"
+          [routerLinkActiveOptions]="{exact: true}"
           (click)="closeMobileMenu()">
           <mat-icon>home</mat-icon>
           Accueil
         </a>
         <a
           class="mobile-nav-link"
-          href="#entreprises"
+          routerLink="/entreprises"
+          routerLinkActive="active"
           (click)="closeMobileMenu()">
           <mat-icon>business</mat-icon>
           Entreprises
         </a>
         <a
           class="mobile-nav-link"
-          href="#consultants"
+          routerLink="/consultants"
+          routerLinkActive="active"
           (click)="closeMobileMenu()">
           <mat-icon>badge</mat-icon>
           Consultants
         </a>
         <a
           class="mobile-nav-link"
-          href="#missions"
+          routerLink="/missions"
+          routerLinkActive="active"
           (click)="closeMobileMenu()">
           <mat-icon>work</mat-icon>
           Missions

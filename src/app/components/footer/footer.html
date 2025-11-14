@@ -1,23 +1,90 @@
- <!-- Footer -->
-    <footer class="footer">
-        <div class="footer-content">
-            <div class="footer-section">
-                <h3>ITMade</h3>
-                <p>Votre partenaire pour le développement web et mobile de nouvelle génération.</p>
-            </div>
-            <div class="footer-section">
-                <h3>Services</h3>
-                <p><a href="#services">Sites Web</a></p>
-                <p><a href="#services">Applications SAAS</a></p>
-                <p><a href="#services">Apps Mobiles</a></p>
-            </div>
-            <div class="footer-section">
-                <h3>Contact</h3>
-                <p>Email: contact&#64;itmade.fr</p>
-                <p>Téléphone: +33 1 23 45 67 89</p>
-            </div>
+<!-- Footer -->
+<footer class="footer">
+  <div class="container">
+    <div class="footer-content">
+      <!-- Section Logo & Description -->
+      <div class="footer-section brand-section">
+        <div class="footer-logo">
+          <div class="logo">ITMade</div>
+          <div class="baseline">Recrutement & prestations IT</div>
         </div>
-        <div class="footer-bottom">
-            <p>&copy; 2025 ITMade. Tous droits réservés.</p>
+        <p class="footer-description">
+          Votre partenaire de confiance pour le recrutement de consultants IT et les prestations de services informatiques sur mesure.
+        </p>
+        <div class="social-links">
+          <a
+            *ngFor="let social of socialLinks"
+            [href]="social.url"
+            target="_blank"
+            rel="noopener noreferrer"
+            [attr.aria-label]="social.label"
+            class="social-link">
+            <mat-icon>{{ social.icon }}</mat-icon>
+          </a>
         </div>
-    </footer>
+      </div>
+
+      <!-- Section Entreprises -->
+      <div class="footer-section">
+        <h3>Entreprises</h3>
+        <ul class="footer-links">
+          <li><a routerLink="/entreprises">Recrutement IT</a></li>
+          <li><a routerLink="/entreprises">Prestation / Régie</a></li>
+          <li><a routerLink="/entreprises">Conseil & Accompagnement</a></li>
+          <li><a routerLink="/missions">Missions disponibles</a></li>
+        </ul>
+      </div>
+
+      <!-- Section Consultants -->
+      <div class="footer-section">
+        <h3>Consultants</h3>
+        <ul class="footer-links">
+          <li><a routerLink="/consultants">Nos opportunités</a></li>
+          <li><a routerLink="/consultants">Avantages</a></li>
+          <li><a href="#expertises">Expertises recherchées</a></li>
+          <li><a href="#contact">Postuler</a></li>
+        </ul>
+      </div>
+
+      <!-- Section Contact -->
+      <div class="footer-section">
+        <h3>Contact</h3>
+        <ul class="footer-contact">
+          <li>
+            <mat-icon>email</mat-icon>
+            <a href="mailto:contact@itmade.fr">contact@itmade.fr</a>
+          </li>
+          <li>
+            <mat-icon>phone</mat-icon>
+            <a href="tel:+33123456789">+33 1 23 45 67 89</a>
+          </li>
+          <li>
+            <mat-icon>schedule</mat-icon>
+            <span>Lun - Ven : 9h - 18h</span>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Footer Bottom -->
+    <div class="footer-bottom">
+      <div class="footer-bottom-content">
+        <p class="copyright">
+          &copy; {{ currentYear }} ITMade. Tous droits réservés.
+        </p>
+        <div class="footer-bottom-links">
+          <a routerLink="/mentions-legales">Mentions légales</a>
+          <a routerLink="/mentions-legales">Confidentialité</a>
+          <a routerLink="/mentions-legales">CGV</a>
+        </div>
+        <button
+          class="scroll-top"
+          mat-icon-button
+          (click)="scrollToTop()"
+          aria-label="Retour en haut">
+          <mat-icon>arrow_upward</mat-icon>
+        </button>
+      </div>
+    </div>
+  </div>
+</footer>

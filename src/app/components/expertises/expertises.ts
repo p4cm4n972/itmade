@@ -9,5 +9,10 @@ import { MatButtonModule } from '@angular/material/button';
   styleUrl: './expertises.scss'
 })
 export class Expertises {
-
+  scrollToContact(): void {
+    const contactSection = document.getElementById('contact');
+    if (contactSection) {
+      contactSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  }
 }

@@ -1,0 +1,35 @@
+<!-- Hero Consultants -->
+<section class="page-hero">
+  <div class="container">
+    <div class="hero-content">
+      <div class="hero-badge">
+        <mat-icon>badge</mat-icon>
+        <span>Espace consultants</span>
+      </div>
+      <h1>Trouvez votre prochaine mission IT</h1>
+      <p>Rejoignez notre réseau de consultants IT et accédez à des missions de qualité chez des clients finaux.</p>
+      <div class="hero-cta">
+        <button class="btn btn-primary btn-large" mat-raised-button (click)="scrollToSection('consultants')">
+          <mat-icon>send</mat-icon>
+          Proposer mon profil
+        </button>
+        <button class="btn btn-secondary btn-large" mat-stroked-button (click)="goToMissions()">
+          <mat-icon>work</mat-icon>
+          Voir les missions
+        </button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Section Consultants détaillée -->
+<app-consultants></app-consultants>
+
+<!-- Section Expertises recherchées -->
+<app-expertises></app-expertises>
+
+<!-- Section Notre approche -->
+<app-approche></app-approche>
+
+<!-- CTA Final -->
+<app-cta-final></app-cta-final>
