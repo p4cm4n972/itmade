@@ -1,0 +1,313 @@
+/* ========== SECTION CONSULTANTS ========== */
+
+.consultants {
+  padding: var(--space-20) 0;
+  background: var(--background-primary);
+  position: relative;
+}
+
+.consultants-wrapper {
+  display: grid;
+  grid-template-columns: 1.1fr 0.9fr;
+  gap: var(--space-16);
+  align-items: center;
+}
+
+/* ========== CONTENT ========== */
+
+.consultants-content {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-6);
+}
+
+.section-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: var(--space-2) var(--space-4);
+  background: linear-gradient(135deg, rgba(99, 102, 241, 0.1), rgba(139, 92, 246, 0.1));
+  border: 1px solid rgba(99, 102, 241, 0.2);
+  border-radius: var(--radius-full);
+  width: fit-content;
+  font-size: var(--text-sm);
+  font-weight: var(--font-semibold);
+  color: var(--secondary-color);
+
+  mat-icon {
+    font-size: 18px;
+    width: 18px;
+    height: 18px;
+  }
+}
+
+.section-title {
+  font-size: clamp(2rem, 4vw, 2.5rem);
+  font-weight: var(--font-extrabold);
+  color: var(--text-primary);
+  line-height: var(--leading-tight);
+  margin: 0;
+}
+
+.section-description {
+  font-size: var(--text-lg);
+  color: var(--text-secondary);
+  line-height: var(--leading-relaxed);
+  max-width: 600px;
+}
+
+/* ========== BENEFITS LIST ========== */
+
+.benefits-list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-6);
+  margin: var(--space-4) 0;
+}
+
+.benefit-item {
+  display: flex;
+  gap: var(--space-4);
+  align-items: flex-start;
+}
+
+.benefit-icon {
+  width: 48px;
+  height: 48px;
+  min-width: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, rgba(99, 102, 241, 0.1), rgba(139, 92, 246, 0.1));
+  border: 1px solid rgba(99, 102, 241, 0.2);
+  border-radius: var(--radius-xl);
+  color: var(--secondary-color);
+
+  mat-icon {
+    font-size: 24px;
+    width: 24px;
+    height: 24px;
+  }
+}
+
+.benefit-content {
+  flex: 1;
+
+  h3 {
+    font-size: var(--text-lg);
+    font-weight: var(--font-bold);
+    color: var(--text-primary);
+    margin: 0 0 var(--space-2);
+  }
+
+  p {
+    font-size: var(--text-base);
+    color: var(--text-secondary);
+    line-height: var(--leading-relaxed);
+    margin: 0;
+  }
+}
+
+.consultants-cta {
+  display: flex;
+  gap: var(--space-4);
+  flex-wrap: wrap;
+  margin-top: var(--space-4);
+}
+
+/* ========== VISUAL ========== */
+
+.consultants-visual {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-6);
+}
+
+.visual-card {
+  background: var(--background-card);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-2xl);
+  padding: var(--space-6);
+  box-shadow: var(--shadow-lg);
+  transition: all var(--transition-base);
+
+  &:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-xl);
+  }
+
+  &.visual-card-secondary {
+    background: var(--gradient-primary);
+    border: none;
+    color: var(--text-inverse);
+  }
+}
+
+.card-header {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  margin-bottom: var(--space-4);
+  font-size: var(--text-sm);
+  font-weight: var(--font-semibold);
+  color: var(--text-secondary);
+
+  mat-icon {
+    font-size: 20px;
+    width: 20px;
+    height: 20px;
+  }
+
+  .visual-card-secondary & {
+    color: var(--text-inverse);
+  }
+}
+
+.missions-count {
+  text-align: center;
+  padding: var(--space-4) 0;
+}
+
+.count-number {
+  font-size: var(--text-6xl);
+  font-weight: var(--font-extrabold);
+  color: var(--secondary-color);
+  line-height: 1;
+  margin-bottom: var(--space-2);
+}
+
+.count-label {
+  font-size: var(--text-base);
+  color: var(--text-secondary);
+}
+
+.mission-tags {
+  display: flex;
+  gap: var(--space-2);
+  flex-wrap: wrap;
+  justify-content: center;
+  margin-top: var(--space-4);
+
+  .tag {
+    padding: var(--space-1) var(--space-3);
+    background: var(--background-secondary);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-md);
+    font-size: var(--text-xs);
+    font-weight: var(--font-semibold);
+    color: var(--text-secondary);
+  }
+}
+
+.stat-row {
+  display: flex;
+  gap: var(--space-8);
+  justify-content: center;
+}
+
+.stat {
+  text-align: center;
+}
+
+.stat-value {
+  font-size: var(--text-4xl);
+  font-weight: var(--font-extrabold);
+  color: var(--text-inverse);
+  line-height: 1;
+  margin-bottom: var(--space-1);
+}
+
+.stat-label {
+  font-size: var(--text-sm);
+  color: rgba(255, 255, 255, 0.8);
+}
+
+/* ========== FLOATING BADGES ========== */
+
+.floating-badge {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  gap: var(--space-1);
+  padding: var(--space-1) var(--space-3);
+  background: var(--background-card);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-full);
+  box-shadow: var(--shadow-md);
+  font-size: var(--text-xs);
+  font-weight: var(--font-semibold);
+  color: var(--secondary-color);
+  animation: float-badge 3s ease-in-out infinite;
+
+  mat-icon {
+    font-size: 16px;
+    width: 16px;
+    height: 16px;
+  }
+
+  &.badge-1 {
+    top: -10px;
+    right: -10px;
+    animation-delay: 0s;
+  }
+
+  &.badge-2 {
+    bottom: 20%;
+    left: -20px;
+    animation-delay: 1.5s;
+  }
+}
+
+@keyframes float-badge {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+/* ========== RESPONSIVE ========== */
+
+@media (max-width: 1024px) {
+  .consultants-wrapper {
+    grid-template-columns: 1fr;
+    gap: var(--space-12);
+  }
+
+  .consultants-visual {
+    max-width: 500px;
+    margin: 0 auto;
+  }
+}
+
+@media (max-width: 768px) {
+  .consultants {
+    padding: var(--space-16) 0;
+  }
+
+  .benefits-list {
+    gap: var(--space-5);
+  }
+
+  .consultants-cta {
+    flex-direction: column;
+
+    .btn {
+      width: 100%;
+      justify-content: center;
+    }
+  }
+}
+
+@media (max-width: 480px) {
+  .benefit-item {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .floating-badge {
+    display: none;
+  }
+}
