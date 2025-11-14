@@ -58,8 +58,18 @@ export class Navbar implements AfterViewInit, OnDestroy {
 
   // ✅ NOUVELLE MÉTHODE : Initialiser l'état du menu mobile
   private initializeMobileMenuState(): void {
-    gsap.set('.mobile-nav-link', {
+    gsap.set('.mobile-links .mobile-nav-link', {
       x: 30,
+      opacity: 0
+    });
+
+    gsap.set('.mobile-logo', {
+      y: -20,
+      opacity: 0
+    });
+
+    gsap.set('.mobile-cta', {
+      scale: 0.9,
       opacity: 0
     });
 
@@ -92,8 +102,18 @@ export class Navbar implements AfterViewInit, OnDestroy {
       opacity: 0
     });
 
-    gsap.set('.desktop-nav .mat-mdc-button', {
+    gsap.set('.logo-container', {
       y: -20,
+      opacity: 0
+    });
+
+    gsap.set('.desktop-nav .nav-link', {
+      y: -20,
+      opacity: 0
+    });
+
+    gsap.set('.cta-button', {
+      scale: 0.8,
       opacity: 0
     });
   }
@@ -106,16 +126,28 @@ export class Navbar implements AfterViewInit, OnDestroy {
       .to('.navbar', {
         y: 0,
         opacity: 1,
-        duration: 1,
+        duration: 0.8,
         ease: 'power3.out'
       })
-      .to('.desktop-nav .mat-mdc-button', {
+      .to('.logo-container', {
         y: 0,
         opacity: 1,
         duration: 0.6,
-        stagger: 0.1,
         ease: 'power3.out'
-      }, '-=0.5'); // Commence avant la fin de la navbar
+      }, '-=0.6')
+      .to('.desktop-nav .nav-link', {
+        y: 0,
+        opacity: 1,
+        duration: 0.5,
+        stagger: 0.08,
+        ease: 'power3.out'
+      }, '-=0.4')
+      .to('.cta-button', {
+        scale: 1,
+        opacity: 1,
+        duration: 0.5,
+        ease: 'back.out(1.2)'
+      }, '-=0.3');
   }
 
 
@@ -152,8 +184,19 @@ export class Navbar implements AfterViewInit, OnDestroy {
         duration: 0.4,
         ease: 'power3.out'
       }, '-=0.1')
-      // ✅ CORRECTION : Animer vers l'état final (pas from)
-      .to('.mobile-nav-link', {
+      .to('.mobile-logo', {
+        y: 0,
+        opacity: 1,
+        duration: 0.4,
+        ease: 'power3.out'
+      }, '-=0.2')
+      .to('.mobile-cta', {
+        scale: 1,
+        opacity: 1,
+        duration: 0.4,
+        ease: 'back.out(1.2)'
+      }, '-=0.3')
+      .to('.mobile-links .mobile-nav-link', {
         x: 0,
         opacity: 1,
         duration: 0.4,
@@ -167,13 +210,25 @@ export class Navbar implements AfterViewInit, OnDestroy {
     if (!isPlatformBrowser(this.platformId)) return;
 
     gsap.timeline()
-      .to('.mobile-nav-link', {
+      .to('.mobile-links .mobile-nav-link', {
         x: 30,
         opacity: 0,
         duration: 0.2,
         stagger: 0.02,
         ease: 'power3.in'
       })
+      .to('.mobile-cta', {
+        scale: 0.9,
+        opacity: 0,
+        duration: 0.2,
+        ease: 'power3.in'
+      }, '-=0.1')
+      .to('.mobile-logo', {
+        y: -20,
+        opacity: 0,
+        duration: 0.2,
+        ease: 'power3.in'
+      }, '-=0.1')
       .to('.mobile-nav', {
         right: '-100%',
         duration: 0.3,
@@ -185,11 +240,10 @@ export class Navbar implements AfterViewInit, OnDestroy {
         ease: 'power2.in',
         onComplete: () => {
           gsap.set('.mobile-menu-overlay', { display: 'none' });
-          // ✅ NOUVEAU : Remettre les liens dans leur état initial
-          gsap.set('.mobile-nav-link', {
-            x: 30,
-            opacity: 0
-          });
+          // ✅ Reset tous les éléments
+          gsap.set('.mobile-links .mobile-nav-link', { x: 30, opacity: 0 });
+          gsap.set('.mobile-logo', { y: -20, opacity: 0 });
+          gsap.set('.mobile-cta', { scale: 0.9, opacity: 0 });
         }
       }, '-=0.2');
   }

@@ -1,36 +1,115 @@
 <!-- Hero Section -->
-<div class="hero-panel" #hero >
-  <!-- Hero Section -->
-  <section class="hero" #heroSection id="ho">
-    <!-- Conteneur des bulles technologiques premium -->
-    <div class="tech-bubbles-container">
-      @for(tech of technologies;track tech.name;let i = $index) {<div class="tech-bubble"
-        (click)="onTechBubbleClick(tech)" [attr.data-tech]="tech.name" [attr.title]="tech.name">
-        <img [src]="tech.logo" [alt]="tech.name + ' logo'" />
-      </div>}
-    </div>
+<section class="hero" #heroSection id="accueil">
+  <!-- Background Elements -->
+  <div class="hero-background">
+    <div class="gradient-orb orb-1"></div>
+    <div class="gradient-orb orb-2"></div>
+    <div class="gradient-orb orb-3"></div>
+    <div class="grid-pattern"></div>
+  </div>
 
-    <div class="hero-container">
-      <div class="hero-content hero-fade-in">
-        <h1>Création Site Web Professionnel pour TPE & PME - ITMade</h1>
-        <p>Votre présence en ligne clé en main ! Site vitrine professionnel, hébergement inclus et maintenance
-          simplifiée. Idéal pour commerçants, artisans et indépendants.</p>
-        <a href="#se" class="cta-button" (click)="onCTAClick()">
-          <span class="material-icons">rocket_launch</span>
-          Voir nos offres dès 650€
-        </a>
+  <div class="hero-container">
+    <div class="hero-content">
+      <!-- Badge -->
+      <div class="hero-badge">
+        <mat-icon>verified</mat-icon>
+        <span>Recrutement IT de confiance</span>
       </div>
 
-      <div class="hero-visual hero-slide-in-right">
-        <div class="floating-card" #floatingCard>
-          <h3>✨ Offre Spéciale</h3>
-          <p>Site vitrine professionnel + nom de domaine + hébergement à partir de 650€ seulement</p>
+      <!-- Main Title -->
+      <h1 class="hero-title">
+        <span class="title-line">L'IT sur mesure.</span>
+        <span class="title-line gradient-text">Le talent à la bonne place.</span>
+      </h1>
 
+      <!-- Subtitle -->
+      <p class="hero-subtitle">
+        ITMade accompagne les <strong>entreprises</strong> dans leurs projets numériques en plaçant des <strong>consultants IT qualifiés</strong> : développeurs, chefs de projet, DevOps, experts cloud, et bien plus.
+      </p>
+
+      <!-- CTA Buttons -->
+      <div class="hero-cta">
+        <button class="btn btn-primary btn-large" (click)="scrollToSection('entreprises')">
+          <mat-icon>business</mat-icon>
+          Je cherche un consultant
+        </button>
+        <button class="btn btn-secondary btn-large" (click)="scrollToSection('consultants')">
+          <mat-icon>badge</mat-icon>
+          Je suis consultant
+        </button>
+      </div>
+
+      <!-- Stats -->
+      <div class="hero-stats">
+        <div class="stat-item">
+          <div class="stat-number">+150</div>
+          <div class="stat-label">Consultants qualifiés</div>
+        </div>
+        <div class="stat-divider"></div>
+        <div class="stat-item">
+          <div class="stat-number">+50</div>
+          <div class="stat-label">Entreprises satisfaites</div>
+        </div>
+        <div class="stat-divider"></div>
+        <div class="stat-item">
+          <div class="stat-number">95%</div>
+          <div class="stat-label">Missions réussies</div>
         </div>
       </div>
     </div>
-  </section>
-</div>
+
+    <!-- Hero Visual -->
+    <div class="hero-visual">
+      <div class="visual-card" #visualCard>
+        <div class="card-header">
+          <div class="card-icon">
+            <mat-icon>code</mat-icon>
+          </div>
+          <div class="card-status">
+            <span class="status-dot"></span>
+            <span>Mission en cours</span>
+          </div>
+        </div>
+        <div class="card-content">
+          <h3>Développeur Angular Senior</h3>
+          <p>Paris • Remote possible</p>
+          <div class="card-tags">
+            <span class="tag">Angular</span>
+            <span class="tag">TypeScript</span>
+            <span class="tag">GSAP</span>
+          </div>
+        </div>
+        <div class="card-footer">
+          <div class="avatar-group">
+            <div class="avatar">👨‍💻</div>
+            <div class="avatar">👩‍💼</div>
+            <div class="avatar">🧑‍💻</div>
+          </div>
+          <span class="card-match">98% Match</span>
+        </div>
+      </div>
+
+      <!-- Floating Elements -->
+      <div class="floating-element elem-1">
+        <mat-icon>trending_up</mat-icon>
+      </div>
+      <div class="floating-element elem-2">
+        <mat-icon>security</mat-icon>
+      </div>
+      <div class="floating-element elem-3">
+        <mat-icon>speed</mat-icon>
+      </div>
+    </div>
+  </div>
+
+  <!-- Scroll Indicator -->
+  <div class="scroll-indicator">
+    <div class="mouse">
+      <div class="wheel"></div>
+    </div>
+    <span>Découvrez nos services</span>
+  </div>
+</section>
 
 <!-- Services Section -->
 <div class="service-panel" id="services">
