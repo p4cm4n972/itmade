@@ -64,14 +64,16 @@ jobs:
             echo "➡️ Build Angular SSR..."
             npm run build
 
-            # 4) PM2 : démarrage ou restart
-            if pm2 list | grep -q "itmade"; then
-              echo "➡️ Restart PM2 process itmade..."
-              pm2 restart itmade
-            else
-              echo "➡️ Premier démarrage PM2..."
-              pm2 start ecosystem.config.js --only itmade --name itmade
-            fi
+           echo "➡️ Gestion du process PM2..."
 
-            pm2 save
-          EOF
+           if pm2 list | grep -q "itmade"; then
+           echo "➡️ Process 'itmade' trouvé, restart avec update env..."
+           pm2 restart itmade --update-env
+           else
+            echo "➡️ Aucun process 'itmade', premier start..."
+            pm2 start ecosystem.config.js --only itmade --name itmade
+           fi
+
+           pm2 save
+
+           EOF
