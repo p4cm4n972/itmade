@@ -39,7 +39,7 @@ jobs:
             # 2) Premier déploiement : si pas encore de repo, on clone
             if [ ! -d "$APP_DIR/.git" ]; then
               echo "➡️ Premier déploiement : clonage du repo..."
-              git clone git@github.com:p4cm4n972/itmade.git itmade
+              git clone git@github.com:p4cm4n972/itmade .git itmade
             fi
 
             cd "$APP_DIR"
@@ -48,7 +48,7 @@ jobs:
             git pull origin main
 
             echo "➡️ Installation des dépendances..."
-            npm install --omit=dev
+            npm install
 
             # 3) Variables d'environnement pour le build
             export API_BASE_URL="${{ secrets.API_BASE_URL }}"
