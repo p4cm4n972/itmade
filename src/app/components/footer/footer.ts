@@ -12,6 +12,7 @@ import { RouterLink } from '@angular/router';
 })
 export class Footer {
   currentYear = new Date().getFullYear();
+  appVersion = '2.0.0'; // Version from package.json
 
   socialLinks = [
     { icon: 'link', url: 'https://linkedin.com', label: 'LinkedIn' },

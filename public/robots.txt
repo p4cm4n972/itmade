@@ -1,24 +1,29 @@
+# robots.txt for ITMade ESN/SSII
+# Optimized for search engine indexation
+
 User-agent: *
 Allow: /
 
 # Sitemap location
 Sitemap: https://itmade.fr/sitemap.xml
 
-# Crawl delay (optional, in seconds)
+# Crawl delay (in seconds)
 Crawl-delay: 1
 
-# Specific rules for common bots
+# Specific rules for Google (higher priority)
 User-agent: Googlebot
 Allow: /
-Crawl-delay: 1
+Crawl-delay: 0
 
+# Specific rules for Bing
 User-agent: Bingbot
 Allow: /
 Crawl-delay: 1
 
-# Block access to admin/private areas (if any)
-# Disallow: /admin/
-# Disallow: /private/
+# Block access to admin/private areas
+Disallow: /admin/
+Disallow: /private/
+Disallow: /.env
 
 # Block access to development files
 Disallow: /*.json$
@@ -26,3 +31,17 @@ Disallow: /*.ts$
 Disallow: /*.scss$
 Disallow: /node_modules/
 Disallow: /src/
+Disallow: /dist/
+
+# Block bad/aggressive bots
+User-agent: MJ12bot
+Disallow: /
+
+User-agent: AhrefsBot
+Disallow: /
+
+User-agent: SemrushBot
+Disallow: /
+
+User-agent: DotBot
+Disallow: /

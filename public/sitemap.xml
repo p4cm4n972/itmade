@@ -4,42 +4,50 @@
         xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9
         http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
   
-  <!-- Home Page -->
+  <!-- Home Page - Priority Haute -->
   <url>
     <loc>https://itmade.fr/</loc>
-    <lastmod>2024-12-20</lastmod>
+    <lastmod>2025-11-15</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
   </url>
   
-  <!-- Services Section -->
+  <!-- Section: Pour les Entreprises -->
   <url>
-    <loc>https://itmade.fr/#services</loc>
-    <lastmod>2024-12-20</lastmod>
+    <loc>https://itmade.fr/#entreprises</loc>
+    <lastmod>2025-11-15</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  
+  <!-- Section: Pour les Consultants -->
+  <url>
+    <loc>https://itmade.fr/#consultants</loc>
+    <lastmod>2025-11-15</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  
+  <!-- Section: Nos Expertises -->
+  <url>
+    <loc>https://itmade.fr/#expertises</loc>
+    <lastmod>2025-11-15</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   
-  <!-- Features Section -->
+  <!-- Section: Notre Approche -->
   <url>
-    <loc>https://itmade.fr/#fonctionnalites</loc>
-    <lastmod>2024-12-20</lastmod>
+    <loc>https://itmade.fr/#approche</loc>
+    <lastmod>2025-11-15</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   
-  <!-- About Section -->
-  <url>
-    <loc>https://itmade.fr/#a-propos</loc>
-    <lastmod>2024-12-20</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <!-- Contact Section -->
+  <!-- Contact Page -->
   <url>
     <loc>https://itmade.fr/#contact</loc>
-    <lastmod>2024-12-20</lastmod>
+    <lastmod>2025-11-15</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
