@@ -39,7 +39,7 @@ jobs:
             # 2) Premier déploiement : si pas encore de repo, on clone
             if [ ! -d "$APP_DIR/.git" ]; then
               echo "➡️ Premier déploiement : clonage du repo..."
-              git clone git@github.com:TON_USER/TON_REPO.git itmade
+              git clone git@github.com:p4cm4n972/itmade.git itmade
             fi
 
             cd "$APP_DIR"
