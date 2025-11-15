@@ -1,79 +1,53 @@
-name: Deploy Frontend to VPS
+- name: Deploy Frontend (ITMade SSR)
+  run: |
+    ssh ubuntu@"${{ secrets.SSH_HOST }}" << 'EOF'
+      set -e
 
-on:
-  push:
-    branches:
-      - main
+      APP_DIR="/var/www/itmade/itmade"
+      PARENT_DIR="/var/www/itmade"
 
-jobs:
-  deploy:
-    runs-on: ubuntu-latest
+      # 1) Création du dossier parent si besoin
+      if [ ! -d "$PARENT_DIR" ]; then
+        sudo mkdir -p "$PARENT_DIR"
+        sudo chown -R ubuntu:ubuntu "$PARENT_DIR"
+      fi
 
-    steps:
-      - name: Checkout Repository
-        uses: actions/checkout@v3
+      cd "$PARENT_DIR"
 
-      - name: Setup SSH Key
-        run: |
-          mkdir -p ~/.ssh
-          echo "${{ secrets.SSH_PRIVATE_KEY }}" | tr -d '\r' > ~/.ssh/id_rsa
-          chmod 600 ~/.ssh/id_rsa
-          ssh-keyscan -H "${{ secrets.SSH_HOST }}" >> ~/.ssh/known_hosts
+      # 2) Premier déploiement : si le repo n'existe pas encore, on le clone
+      if [ ! -d "$APP_DIR/.git" ]; then
+        echo "➡️ Premier déploiement : clonage du repo..."
+        git clone git@github.com:p4cm4n972/itmade.git itmade
+      fi
 
-      - name: Deploy Frontend (first + next deployments)
-        run: |
-          ssh ubuntu@"${{ secrets.SSH_HOST }}" << 'EOF'
-            set -e
+      cd "$APP_DIR"
 
-            APP_DIR="/var/www/itmade/itmade"
-            PARENT_DIR="/var/www/itmade"
+      echo "➡️ Pull des dernières modifications..."
+      git pull origin main
 
-            # 1) Création du dossier parent si besoin
-            if [ ! -d "$PARENT_DIR" ]; then
-              sudo mkdir -p "$PARENT_DIR"
-              sudo chown -R ubuntu:ubuntu "$PARENT_DIR"
-            fi
+      echo "➡️ Installation / mise à jour des dépendances..."
+      npm install
 
-            cd "$PARENT_DIR"
+      # 3) Variables d'env éventuelles pour le build Angular
+      export API_BASE_URL="${{ secrets.API_BASE_URL }}"
+      export EMAILJS_SERVICE_ID="${{ secrets.EMAILJS_SERVICE_ID }}"
+      export EMAILJS_TEMPLATE_ID="${{ secrets.EMAILJS_TEMPLATE_ID }}"
+      export EMAILJS_PUBLIC_KEY="${{ secrets.EMAILJS_PUBLIC_KEY }}"
 
-            # 2) Premier déploiement : si pas encore de repo, on clone
-            if [ ! -d "$APP_DIR/.git" ]; then
-              echo "➡️ Premier déploiement : clonage du repo..."
-              git clone git@github.com:p4cm4n972/itmade .git itmade
-            fi
+      if [ -z "$API_BASE_URL" ]; then
+        API_BASE_URL="http://127.0.0.1:3000"
+      fi
 
-            cd "$APP_DIR"
+      echo "➡️ Build SSR..."
+      npm run build
 
-            echo "➡️ Pull des dernières modifications..."
-            git pull origin main
+      # 4) Redémarrage du SSR avec PM2 via start-itmade.sh
+      echo "➡️ Restart PM2 itmade-ssr..."
+      if pm2 list | grep -q "itmade-ssr"; then
+        pm2 restart itmade-ssr
+      else
+        pm2 start /var/www/itmade/itmade/start-itmade.sh --name itmade-ssr
+      fi
 
-            echo "➡️ Installation des dépendances..."
-            npm install
-
-            # 3) Variables d'environnement pour le build
-            export API_BASE_URL="${{ secrets.API_BASE_URL }}"
-            export EMAILJS_SERVICE_ID="${{ secrets.EMAILJS_SERVICE_ID }}"
-            export EMAILJS_TEMPLATE_ID="${{ secrets.EMAILJS_TEMPLATE_ID }}"
-            export EMAILJS_PUBLIC_KEY="${{ secrets.EMAILJS_PUBLIC_KEY }}"
-
-            # Valeur par défaut si API_BASE_URL est vide
-            if [ -z "$API_BASE_URL" ]; then
-              API_BASE_URL="http://127.0.0.1:3000"
-            fi
-
-            echo "➡️ Build Angular SSR..."
-            npm run build
-
-           echo "➡️ Gestion du process PM2..."
-
-           if pm2 list | grep -q "itmade"; then
-           echo "➡️ Process 'itmade' trouvé, restart avec update env..."
-           pm2 restart itmade --update-env
-           else
-            echo "➡️ Aucun process 'itmade', premier start..."
-            pm2 start ecosystem.config.js --only itmade --name itmade
-           fi
-
-           pm2 save
-
-          EOF
+      pm2 save
+    EOF
