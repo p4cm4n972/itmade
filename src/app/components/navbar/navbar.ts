@@ -2,7 +2,7 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { CommonModule, isPlatformBrowser } from '@angular/common';
-import { RouterLink, RouterLinkActive } from '@angular/router';
+import { RouterLink, RouterLinkActive, Router } from '@angular/router';
 import {
   Component,
   AfterViewInit,
@@ -32,7 +32,10 @@ export class Navbar implements AfterViewInit, OnDestroy {
   private resizeTimeout: any;
   private scrollHandler: () => void;
 
-  constructor(@Inject(PLATFORM_ID) private platformId: Object) {
+  constructor(
+    @Inject(PLATFORM_ID) private platformId: Object,
+    private router: Router
+  ) {
     // Bind du scroll handler pour le cleanup
     this.scrollHandler = this.createScrollHandler();
   }
@@ -422,20 +425,39 @@ export class Navbar implements AfterViewInit, OnDestroy {
   public navigateToSection(sectionId: string): void {
     if (!isPlatformBrowser(this.platformId)) return;
 
-    const element = document.getElementById(sectionId);
-    if (element) {
-      // Fermer le menu mobile si ouvert
-      if (this.isMenuOpen) {
-        this.closeMobileMenu();
-      }
+    // Fermer le menu mobile si ouvert
+    const menuWasOpen = this.isMenuOpen;
+    if (this.isMenuOpen) {
+      this.closeMobileMenu();
+    }
 
-      // Scroll vers la section avec un délai pour laisser le menu se fermer
+    // Vérifier si on est sur la page d'accueil
+    if (this.router.url === '/' || this.router.url.startsWith('/#')) {
+      // On est déjà sur la page d'accueil, juste scroller
+      const delay = menuWasOpen ? 300 : 0;
       setTimeout(() => {
-        element.scrollIntoView({
-          behavior: 'smooth',
-          block: 'start'
-        });
-      }, this.isMenuOpen ? 300 : 0);
+        const element = document.getElementById(sectionId);
+        if (element) {
+          element.scrollIntoView({
+            behavior: 'smooth',
+            block: 'start'
+          });
+        }
+      }, delay);
+    } else {
+      // On est sur une autre page, naviguer vers l'accueil puis scroller
+      this.router.navigate(['/']).then(() => {
+        // Attendre que la page soit chargée et que les animations se terminent
+        setTimeout(() => {
+          const element = document.getElementById(sectionId);
+          if (element) {
+            element.scrollIntoView({
+              behavior: 'smooth',
+              block: 'start'
+            });
+          }
+        }, 500);
+      });
     }
   }
 

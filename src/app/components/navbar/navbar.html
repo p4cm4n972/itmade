@@ -12,8 +12,8 @@
       <a class="nav-link" routerLink="/entreprises" routerLinkActive="active">Entreprises</a>
       <a class="nav-link" routerLink="/consultants" routerLinkActive="active">Consultants</a>
       <a class="nav-link" routerLink="/missions" routerLinkActive="active">Missions</a>
-      <a class="nav-link" href="#a-propos">À propos</a>
-      <a class="nav-link" href="#contact">Contact</a>
+      <a class="nav-link" (click)="navigateToSection('a-propos')" style="cursor: pointer;">À propos</a>
+      <a class="nav-link" (click)="navigateToSection('contact')" style="cursor: pointer;">Contact</a>
     </div>
 
     <!-- CTA Principal -->
@@ -96,15 +96,15 @@
         </a>
         <a
           class="mobile-nav-link"
-          href="#a-propos"
-          (click)="closeMobileMenu()">
+          (click)="navigateToSection('a-propos')"
+          style="cursor: pointer;">
           <mat-icon>info</mat-icon>
           À propos
         </a>
         <a
           class="mobile-nav-link"
-          href="#contact"
-          (click)="closeMobileMenu()">
+          (click)="navigateToSection('contact')"
+          style="cursor: pointer;">
           <mat-icon>contact_mail</mat-icon>
           Contact
         </a>

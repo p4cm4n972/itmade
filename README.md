@@ -330,6 +330,75 @@ scrollToContact(): void {
 - `src/app/pages/consultants-page/consultants-page.ts`
 - `src/app/pages/missions-page/missions-page.ts`
 
+---
+
+### 6. Liens navbar "À propos" et "Contact" non fonctionnels sur pages autres que l'accueil
+
+**Problème :**
+Les liens "À propos" et "Contact" dans la navbar fonctionnaient uniquement sur la page d'accueil. Sur les autres pages (`/entreprises`, `/consultants`, `/missions`), cliquer sur ces liens ne produisait aucun effet.
+
+**Cause :**
+Les liens utilisaient des ancres HTML simples (`href="#a-propos"` et `href="#contact"`) qui pointent vers des sections présentes uniquement sur la page d'accueil. Sur les autres pages, ces sections n'existent pas, donc les ancres ne peuvent pas fonctionner.
+
+**Solution :**
+1. Injection du Router dans le composant Navbar
+2. Conversion des ancres en gestionnaires de clic
+3. Modification de `navigateToSection()` pour détecter la page courante et naviguer si nécessaire
+
+```typescript
+// navbar.ts
+public navigateToSection(sectionId: string): void {
+  if (!isPlatformBrowser(this.platformId)) return;
+
+  const menuWasOpen = this.isMenuOpen;
+  if (this.isMenuOpen) {
+    this.closeMobileMenu();
+  }
+
+  // Vérifier si on est sur la page d'accueil
+  if (this.router.url === '/' || this.router.url.startsWith('/#')) {
+    // Déjà sur l'accueil, juste scroller
+    setTimeout(() => {
+      const element = document.getElementById(sectionId);
+      if (element) {
+        element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+    }, menuWasOpen ? 300 : 0);
+  } else {
+    // Sur une autre page, naviguer vers l'accueil puis scroller
+    this.router.navigate(['/']).then(() => {
+      setTimeout(() => {
+        const element = document.getElementById(sectionId);
+        if (element) {
+          element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+      }, 500);
+    });
+  }
+}
+```
+
+```html
+<!-- navbar.html - Desktop -->
+<a class="nav-link" (click)="navigateToSection('a-propos')" style="cursor: pointer;">À propos</a>
+<a class="nav-link" (click)="navigateToSection('contact')" style="cursor: pointer;">Contact</a>
+
+<!-- navbar.html - Mobile -->
+<a class="mobile-nav-link" (click)="navigateToSection('a-propos')" style="cursor: pointer;">
+  <mat-icon>info</mat-icon>
+  À propos
+</a>
+```
+
+**Comportement obtenu :**
+- Sur la page d'accueil : Scroll direct vers la section
+- Sur les autres pages : Navigation vers `/` puis scroll vers la section après chargement
+- Menu mobile : Se ferme automatiquement avant la navigation
+
+**Fichiers modifiés :**
+- `src/app/components/navbar/navbar.ts` (lignes 5, 35-41, 424-462)
+- `src/app/components/navbar/navbar.html` (lignes 15-16, 98-110)
+
 ## 📊 Statistiques du build
 
 ```
