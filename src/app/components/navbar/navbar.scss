@@ -153,6 +153,43 @@
   }
 }
 
+/* ========== E-LEARNING BUTTON ========== */
+
+.elearning-button {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: var(--space-3) var(--space-6);
+  font-size: var(--text-sm);
+  font-weight: var(--font-semibold);
+  color: #fff;
+  background: linear-gradient(135deg, #f59e0b, #f97316);
+  border: none;
+  border-radius: var(--radius-lg);
+  box-shadow: 0 4px 14px rgba(245, 158, 11, 0.35);
+  transition: all var(--transition-base);
+  white-space: nowrap;
+  cursor: pointer;
+  text-decoration: none;
+
+  .mat-icon {
+    font-size: 18px;
+    width: 18px;
+    height: 18px;
+  }
+
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(245, 158, 11, 0.45), 0 0 30px rgba(249, 115, 22, 0.2);
+    background: linear-gradient(135deg, #fbbf24, #fb923c);
+  }
+
+  &:active {
+    transform: translateY(0);
+    box-shadow: 0 4px 14px rgba(245, 158, 11, 0.35);
+  }
+}
+
 /* ========== MOBILE MENU BUTTON ========== */
 
 .mobile-menu-button {
@@ -271,6 +308,24 @@
   }
 }
 
+/* ========== MOBILE E-LEARNING ========== */
+
+.mobile-elearning {
+  width: 100%;
+  justify-content: center;
+  padding: var(--space-4) var(--space-6);
+  font-size: var(--text-base);
+  font-weight: var(--font-bold);
+  border-radius: var(--radius-xl);
+  box-shadow: 0 4px 14px rgba(245, 158, 11, 0.35);
+
+  .mat-icon {
+    font-size: 20px;
+    width: 20px;
+    height: 20px;
+  }
+}
+
 /* ========== MOBILE LINKS ========== */
 
 .mobile-links {
@@ -332,7 +387,8 @@
     font-size: var(--text-xs);
   }
 
-  .cta-button {
+  .cta-button,
+  .elearning-button {
     padding: var(--space-2) var(--space-4) !important;
     font-size: var(--text-xs) !important;
   }
@@ -340,7 +396,8 @@
 
 @media (max-width: 968px) {
   .desktop-nav,
-  .cta-button {
+  .cta-button,
+  .elearning-button:not(.mobile-elearning) {
     display: none;
   }
 

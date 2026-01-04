@@ -11,6 +11,7 @@ import { RouterLink } from '@angular/router';
   styleUrl: './footer.scss'
 })
 export class Footer {
+  startYear = 2025;
   currentYear = new Date().getFullYear();
   appVersion = '2.0.0'; // Version from package.json
 

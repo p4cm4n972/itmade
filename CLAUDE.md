@@ -76,6 +76,14 @@ This is an Angular 20 SSR-enabled business website for "itmade", built with mode
 - Store animations/triggers in arrays for proper cleanup
 - Different configs for mobile vs desktop performance
 
+## Branding & Footer Convention
+
+- **Nom de l'entreprise**: Toujours utiliser "ITMade studio" (pas "ITMade" seul)
+- **Copyright footer**: Format obligatoire `© {année de création} - {année courante} ITMade studio.`
+  - Année de création: 2025 (fixe)
+  - Année courante: dynamique via `new Date().getFullYear()`
+  - Exemple: "© 2025 - 2026 ITMade studio. Tous droits réservés."
+
 ## Important Notes
 
 - **SSR Compatibility**: Always check `isPlatformBrowser` before accessing window/document
