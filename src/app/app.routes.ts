@@ -4,11 +4,15 @@ import { EntreprisesPage } from './pages/entreprises-page/entreprises-page';
 import { ConsultantsPage } from './pages/consultants-page/consultants-page';
 import { MissionsPage } from './pages/missions-page/missions-page';
 import { MentionsLegales } from './pages/mentions-legales/mentions-legales';
+import { Confidentialite } from './pages/confidentialite/confidentialite';
+import { CGU } from './pages/cgu/cgu';
 
 export const routes: Routes = [
     { path: '', component: Home },
     { path: 'entreprises', component: EntreprisesPage },
     { path: 'consultants', component: ConsultantsPage },
     { path: 'missions', component: MissionsPage },
-    { path: 'mentions-legales', component: MentionsLegales }
+    { path: 'mentions-legales', component: MentionsLegales },
+    { path: 'confidentialite', component: Confidentialite },
+    { path: 'cgu', component: CGU }
 ];
