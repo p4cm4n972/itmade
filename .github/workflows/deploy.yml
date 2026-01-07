@@ -71,6 +71,8 @@ jobs:
           export NODE_OPTIONS="--max_old_space_size=2048"
           npm run build
 
+
+
           # 4) Redémarrage du SSR avec PM2 via start-itmade.sh
           echo "➡️ Restart PM2 itmade-ssr..."
           if pm2 list | grep -q "itmade-ssr"; then
