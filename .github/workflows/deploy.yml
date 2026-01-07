@@ -54,27 +54,7 @@ jobs:
           echo "➡️ Pull des dernières modifications..."
           git pull origin main
 
-          echo "➡️ Installation / mise à jour des dépendances..."
-          npm install
-
-          # 3) Variables d'env pour le build Angular
-          export API_BASE_URL="${{ secrets.API_BASE_URL }}"
-          export EMAILJS_SERVICE_ID="${{ secrets.EMAILJS_SERVICE_ID }}"
-          export EMAILJS_TEMPLATE_ID="${{ secrets.EMAILJS_TEMPLATE_ID }}"
-          export EMAILJS_PUBLIC_KEY="${{ secrets.EMAILJS_PUBLIC_KEY }}"
-
-          if [ -z "$API_BASE_URL" ]; then
-            API_BASE_URL="http://127.0.0.1:3000"
-          fi
-
-          echo "➡️ Build SSR..."
-          # Libérer de la mémoire avant le build
-          npm cache clean --force
-          sync && echo 3 | sudo tee /proc/sys/vm/drop_caches > /dev/null || true
-
-          # Augmenter la limite mémoire Node.js
-          export NODE_OPTIONS="--max_old_space_size=3072"
-          npm run build
+          echo "➡️ Le dist/ est déjà buildé et inclus dans le repo..."
 
 
 

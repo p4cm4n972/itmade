@@ -1,0 +1,11 @@
+{
+  "routes": {
+    "/": {},
+    "/cgu": {},
+    "/confidentialite": {},
+    "/consultants": {},
+    "/entreprises": {},
+    "/mentions-legales": {},
+    "/missions": {}
+  }
+}
