@@ -25,6 +25,14 @@ const angularApp = new AngularNodeAppEngine();
  */
 
 /**
+ * Fichiers d'autorisation servis explicitement avant le middleware statique
+ */
+app.get('/ads.txt', (_req, res) => {
+  res.type('text/plain');
+  res.send('google.com, pub-3195351081459490, DIRECT, f08c47fec0942fa0\n');
+});
+
+/**
  * Serve static files from /browser
  */
 app.use(
