@@ -14,5 +14,7 @@ export const routes: Routes = [
     { path: 'missions', component: MissionsPage },
     { path: 'mentions-legales', component: MentionsLegales },
     { path: 'confidentialite', component: Confidentialite },
-    { path: 'cgu', component: CGU }
+    { path: 'cgu', component: CGU },
+    { path: 'offres', redirectTo: '/missions', pathMatch: 'full' },
+    { path: '**', redirectTo: '', pathMatch: 'full' }
 ];

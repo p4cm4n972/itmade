@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, ElementRef, Inject, PLATFORM_ID, ViewChild, OnDestroy } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, inject, Inject, PLATFORM_ID, ViewChild, OnDestroy, OnInit } from '@angular/core';
 import { CommonModule, isPlatformBrowser } from '@angular/common';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
@@ -11,6 +11,7 @@ import { Expertises } from "../../components/expertises/expertises";
 import { Approche } from "../../components/approche/approche";
 import { CtaFinal } from "../../components/cta-final/cta-final";
 import { Contact } from "../../components/contact/contact";
+import { SeoService } from '../../services/seo.service';
 
 @Component({
   selector: 'app-home',
@@ -18,15 +19,24 @@ import { Contact } from "../../components/contact/contact";
   styleUrls: ['./home.scss'],
   imports: [CommonModule, Entreprises, Consultants, Expertises, Approche, CtaFinal, Contact, MatIconModule, MatButtonModule]
 })
-export class Home implements AfterViewInit, OnDestroy {
+export class Home implements OnInit, AfterViewInit, OnDestroy {
   @ViewChild('heroSection', { static: false }) heroSection!: ElementRef;
   @ViewChild('visualCard', { static: false }) visualCard!: ElementRef;
 
   private scrollTriggers: ScrollTrigger[] = [];
   private animations: gsap.core.Animation[] = [];
   private isMobile = false;
+  private seo = inject(SeoService);
 
   constructor(@Inject(PLATFORM_ID) private platformId: Object) {}
+
+  ngOnInit(): void {
+    this.seo.setPage({
+      title: 'ITMade studio - ESN/SSII | Recrutement IT & Consultants Experts',
+      description: 'ITMade studio est une ESN/SSII spécialisée dans le placement de consultants IT experts. Recrutement CDI/freelance, prestations en régie, conseil technique.',
+      canonical: 'https://itmade.fr/',
+    });
+  }
 
   ngAfterViewInit(): void {
     if (!isPlatformBrowser(this.platformId)) return;
