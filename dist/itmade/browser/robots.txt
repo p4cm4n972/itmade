@@ -4,8 +4,11 @@
 User-agent: *
 Allow: /
 
-# Sitemap location
+# Sitemaps — domaine principal + sous-domaines de l'écosystème ITMade
 Sitemap: https://itmade.fr/sitemap.xml
+Sitemap: https://learning.itmade.fr/sitemap.xml
+Sitemap: https://codebog.itmade.fr/sitemap.xml
+Sitemap: https://version.itmade.fr/sitemap.xml
 
 # Crawl delay (in seconds)
 Crawl-delay: 1
