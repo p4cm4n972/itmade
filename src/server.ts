@@ -25,6 +25,23 @@ const angularApp = new AngularNodeAppEngine();
  */
 
 /**
+ * Redirection 301 www → non-www (évite le contenu dupliqué pour Google)
+ */
+app.use((req, res, next) => {
+  if (req.hostname === 'www.itmade.fr') {
+    return res.redirect(301, `https://itmade.fr${req.originalUrl}`);
+  }
+  next();
+});
+
+/**
+ * Redirection 301 /offres → /missions (ancienne URL, évite les 404/redirects JS)
+ */
+app.get('/offres', (_req, res) => {
+  res.redirect(301, '/missions');
+});
+
+/**
  * Fichiers d'autorisation servis explicitement avant le middleware statique
  */
 app.get('/ads.txt', (_req, res) => {
